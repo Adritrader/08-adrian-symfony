@@ -1,10 +1,23 @@
-<?php namespace App\Controller;
+<?php
+declare(strict_types=1);
+namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MovieController
+class ProductoController extends AbstractController
 {
+    /**
+     * @Route("/producto", name="producto")
+     */
+    public function index(): Response
+    {
+        return $this->render('producto/index.html.twig', [
+            'controller_name' => 'ProductoController',
+        ]);
+    }
+
     private array $movies = [
         ["id" => "2", "title" => "Ava", "tagline" => "Kill. Or be killed",
             "release_date" => "25/09/2020"],
@@ -20,7 +33,7 @@ class MovieController
 
 
     /**
-     * @Route("/movies/{id}", name="movies_show")
+     * @Route("/productos/{id}", name="productos_show")
      */
     public function show($id)
     {
@@ -38,29 +51,4 @@ class MovieController
         } else
             return new Response("Movie not found");
     }
-
-    /**
-     * @Route("/movies/{text}", name="movies_filter")
-     */
-    public function filter($text)
-    {
-        $result = array_filter($this->movies,
-            function($movie) use ($text)
-            {
-                return strpos($movie["title"], $text) !== false;
-            });
-        $response = "";
-        if (count($result) > 0)
-        {
-            foreach ($result as $movie) {
-                $response .= "<ul><li>" . $movie["title"] . "</li>" .
-                    "<li>" . $movie["tagline"] . "</li>" .
-                    "<li>" . $movie["release_date"] . "</li></ul>";
-            }
-            return new Response("<html><body>$response</body></html>");
-        }
-        else
-            return new Response("No movies found");
-    }
-
 }
