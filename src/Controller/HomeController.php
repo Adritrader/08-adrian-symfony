@@ -22,10 +22,9 @@ class HomeController extends AbstractController {
      */
     public function home()
     {
-        $now = new \DateTime();
 
-        $this->logger->info("Access on {$now->format("Y/m/d H:i:s")}");
-        return $this->render("home.html.twig");
+
+        return $this->render("home/index.html.twig");
     }
 
 }

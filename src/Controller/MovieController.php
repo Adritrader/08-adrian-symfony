@@ -11,10 +11,7 @@ class MovieController extends AbstractController
 
     private array $movies;
 
-    public function __construct(DBTest $data)
-    {
-        $this->movies = $data->get();
-    }
+
 
     /**
      * @Route("/movie", name="movie")

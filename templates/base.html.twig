@@ -3,11 +3,133 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+            <link rel="stylesheet" href="/css/bootstrap.min.css">
+            <link href="/css/font-awesome.min.css" rel="stylesheet">
+            <link href="/css/global.css" rel="stylesheet">
 
-        {% block javascripts %}{% endblock %}
+        {% endblock %}
+
+        {% block javascripts %}
+
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/popper.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+    <body onload="docReady()">
+    <header>
+        <div class="container-fluid headerContainer">
+            <div class="row fila-header">
+                <div class="col-3 header-logo">
+                    <a href=""><img class="logo" src="/images/design/logo-bueno.png" alt="logo"></a>
+                </div>
+
+                <div class="col-5 horario">
+
+                    <div class="row fila-banner">
+
+                        <div class="col-3 reloj">
+                            <div class="row fila-reloj">
+
+                                <i class="fa fa-clock"></i>
+                                <p>Lunes a Viernes</p>
+                                <p>09:30 - 13:00</p>
+                                <p>16:30 - 20:00</p>
+                                <p>Sábados cerrados a mediodía</p>
+                            </div>
+                        </div>
+
+                        <div class="col-3 reloj">
+                            <div class="row fila-reloj">
+                                <i class="fas fa-store-alt"></i>
+                                <p>Calle Sagunto Nº 10</p>
+                                <p>03700</p>
+                                <p>Dènia</p>
+                                <p>Alicante</p>
+                            </div>
+                        </div>
+                        <div class="col-3 reloj">
+                            <div class="row fila-reloj">
+                                <i class="fas fa-phone"></i>
+                                <p>Móvil: 645 45 45 11</p>
+                                <p>Solo whatsapp</p>
+                                <p>Fijo: 96 455 78 74</p>
+                                <p>@juanbisquert</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-carrito">
+
+                    <?php
+
+                    use App\Core\App;
+                    use App\Core\Router;
+                    use App\Model\UsuarioModel;
+
+
+
+
+                    $loggedUser = $_SESSION["loggedUser"]??[];
+
+                if($loggedUser != []):?>
+                    <?php $router = App::get(Router::class);
+                                    $usuarioModel = App::getModel(UsuarioModel::class);
+                                    $user = App::get("user");
+                                    $usuario = $usuarioModel->find($user->getId());?>
+                    <a id="bd-versions" aria-haspopup="false"
+                       aria-expanded="false" href="/logout" class="button-two">
+                        Log Out
+                    </a>
+
+
+
+
+                    <a id="bd-versions" aria-haspopup="false"
+                       aria-expanded="false" href="/login" class="button-two">
+                        Log in
+                    </a>
+                    <a href="/usuarios/create" class="button-two">Sign Up</a>
+
+
+
+
+                    <div class="row fila-carrito">
+                        <div class="col-12">
+                            <i class="fas fa-shopping-cart"><span>0,00&nbsp;€</span></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-fluid container-barra-nav">
+                <div class="row barra-nav">
+                    <div class="col-11 barra-nav-elementos">
+                        <?php require_once '../inc/functions.php';?>
+                        <a href="/">Home</a>
+                        <a href="/servicios">Servicios</a>
+                        <a href="/quienes-somos">Quiénes Somos</a>
+                        <a href="/galeria">Galería</a>
+                        <a href="/blog">Blog</a>
+                        <a href="/contacto">Contacto</a>
+                        <a href="/tienda">Tienda</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ruta -->
+
+
+
+
+    </header>
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
