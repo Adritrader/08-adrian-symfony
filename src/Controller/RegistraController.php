@@ -13,8 +13,6 @@ class RegistraController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('registra/index.html.twig', [
-            'controller_name' => 'RegistraController',
-        ]);
+        return $this->render('registra/index.html.twig');
     }
 }
