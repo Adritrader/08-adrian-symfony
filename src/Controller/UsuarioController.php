@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UsuarioController extends AbstractController
 {
@@ -27,7 +30,7 @@ class UsuarioController extends AbstractController
         $usuario = new Usuario();
         $form = $this->createFormBuilder($usuario)
             ->add('nombre', TextType::class)
-            ->add('', TextType::class)
+            ->add('apellidos', TextType::class)
             ->add('overview', TextareaType::class)
             ->add('releaseDate', DateType::class)
             ->add('poster', TextType::class)

@@ -2,12 +2,11 @@
 declare(strict_types=1);
 namespace App\Controller;
 
-use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Producto;
-use App\Form\MovieType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductoController extends AbstractController
@@ -23,39 +22,39 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/movies/{$id}", name="movies_show", requirements={"id"="\d+"})
+     * @Route("/productos/{$id}", name="productos_show", requirements={"id"="\d+"})
      */
     public function show(int $id)
     {
-        $movieRepository = $this->getDoctrine()->getRepository(Movie::class);
-        $movie = $movieRepository->find($id);
-        if ($movie)
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->find($id);
+        if ($producto)
         {
-            return $this->render('movie/movie_show.html.twig', ["movie"=>$movie]
+            return $this->render('producto/producto_show.html.twig', ["producto"=>$producto]
             );
         }
         else
-            return $this->render('movie/movie_show.html.twig', [
-                    'movie' => null]
+            return $this->render('producto/producto_show.html.twig', [
+                    'producto' => null]
             );
     }
 
     /**
-     * @Route("/movies/filter", name="movies_filter")
+     * @Route("/productos/filter", name="productos_filter")
      */
     public function filter(Request $request)
     {
         $text = $request->query->getAlnum("text");
-        $movieRepository = $this->getDoctrine()->getRepository(Movie::class);
-        $movies = $movieRepository->filterByText($text);
-        return $this->render('movie/movie_filter.html.twig', array(
-            'movies' => $movies
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->filterByText($text);
+        return $this->render('productos/productos_filter.html.twig', array(
+            'productos' => $producto
         ));
 
     }
 
     /**
-     * @Route("/movies/create", name="movies_create")
+     * @Route("/productos/create", name="movies_create")
      */
     public function create(Request $request)
     {

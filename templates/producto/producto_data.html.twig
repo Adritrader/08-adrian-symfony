@@ -1,0 +1,18 @@
+<ul>
+    <li><strong>{{ producto.nombre }}</strong></li>
+    <li><strong>Categoria</strong>: {{ producto.categoria }}</li>
+    <li><strong>Descripcion</strong>: {{ producto.descripcion }}</li>
+</ul>
+
+{% extends 'base.html.twig' %}
+{% block title %}Productos{% endblock %}
+
+{% block body %}
+
+    <h1>Producto data</h1>
+    {% if producto %}
+        {{ include ('producto_data.html.twig', {'producto': producto }) }}
+    {% else %}
+        <p>Producto no encontrado</p>
+    {% endif %}
+{% endblock %}
