@@ -20,13 +20,26 @@ class UsuarioController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
-        ]);
+
+        $usuario = new Usuario();
+        $form = $this->createFormBuilder($usuario)
+            ->add('nombre', TextType::class)
+            ->add('apellidos', TextType::class)
+            ->add('overview', TextareaType::class)
+            ->add('releaseDate', DateType::class)
+            ->add('poster', TextType::class)
+            ->add('create', SubmitType::class, array('label' => 'Create'))
+            ->getForm();
+
+        return $this->render('usuario/index.html.twig',  array(
+            'form' => $form->createView()));
+
     }
 
+
+
     /**
-     * @Route("/usuario/create", name="usuario_create")
+     * @Route("/register", name="register")
      */
     public function create()
     {

@@ -12,14 +12,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductoController extends AbstractController
 {
     /**
-     * @Route("/producto", name="producto")
+     * @Route("/tienda", name="tienda")
      */
     public function index(): Response
     {
-        return $this->render('producto/index.html.twig', [
-            'controller_name' => 'ProductoController',
-        ]);
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $productos = $productoRepository->findAll();
+
+        if ($productos)
+        {
+            return $this->render('tienda.html.twig', ["productos"=>$productos]
+            );
+        }
+        else
+            return $this->render('tienda.html.twig', [
+                    'productos' => null]
+            );
     }
+
+
 
     /**
      * @Route("/productos/{$id}", name="productos_show", requirements={"id"="\d+"})

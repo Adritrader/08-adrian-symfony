@@ -6,9 +6,6 @@ servicios:
     path: /servicios
     controller: App\Controller\MyController::servicios
 
-tienda:
-    path: /tienda
-    controller: App\Controller\MyController::tienda
 
 quienesSomos:
     path: /quienes-somos
@@ -29,3 +26,12 @@ contacto:
 reservaCita:
     path: /registra-create
     controller: App\Controller\RegistraController::index
+
+usuarios:
+    path: /usuario
+    controller: App\Controller\UsuarioController::index
+
+
+login:
+    path: /login
+    controller: App\Controller\AuthController::index

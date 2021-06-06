@@ -243,5 +243,25 @@
         </div>
     </div>
 </div>
+    <main>
+        <div class="container-fluid ">
+            <div class="row">
+                {% if productos %}
+                    {% for producto in productos %}
+                        <div class="col-3" style="text-align: center; border: 1px black solid">
+                            <img src="{{ producto.getImagen }}" height="200">
+                            <h4>{{producto.getNombre}}</h4>
+                            <p>{{producto.getDescripcion}}</p>
+                            <p>Categoria: {{producto.getCategoria}}</p>
+                            <h4>Precio: {{producto.getPrecio}}€</h4>
+                            <button class="btn btn-success">Comprar</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>No hay productos disponibles</h2>
+                {% endif %}
+            </div>
+        </div>
+    </main>
 {% endblock %}
 

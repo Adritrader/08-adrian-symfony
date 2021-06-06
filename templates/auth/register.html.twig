@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Juan Bisquert | Peluqueria{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>Nuevo usuario</h1>
+        {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

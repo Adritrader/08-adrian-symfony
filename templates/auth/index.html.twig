@@ -3,18 +3,43 @@
 {% block title %}Hello AuthController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container-fluid">
+        <div class="row fila-ruta">
+            <div class="col-5 col-ruta">
+                <div><span>Estas aquí: </span><a href="/">Home</a><span><i
+                                class="fa fa-caret-right"></i><a href="login"
+                                                                 class="active">Login</a></span><span></span></div>
+            </div>
+        </div>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="row fila-formulario justify-content-center">
+        <div class="form-style-3 col-4 col-formulario">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/08-adrian-symfony/src/Controller/AuthController.php'|file_link(0) }}">src/Controller/AuthController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/08-adrian-symfony/templates/auth/index.html.twig'|file_link(0) }}">templates/auth/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <div class="alert alerta-login" role="alert">
+
+            </div>
+
+            <div class="alert alerta-login" role="alert">
+            </div>
+
+            <form class="mt-5" method="post" novalidate>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control"
+                           name="username" id="username"
+                           value=""
+                           placeholder="Username:" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="text" class="form-control"
+                           name="password" id="password"
+                           value=""
+                           placeholder="Password:" required>
+                </div>
+                <input type="submit" class="button-three" value="Login">
+            </form>
+        </div>
+    </div>
 {% endblock %}
