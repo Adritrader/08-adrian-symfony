@@ -6,7 +6,6 @@ servicios:
     path: /servicios
     controller: App\Controller\MyController::servicios
 
-
 quienesSomos:
     path: /quienes-somos
     controller: App\Controller\MyController::quienesSomos

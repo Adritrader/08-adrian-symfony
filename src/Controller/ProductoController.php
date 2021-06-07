@@ -50,19 +50,24 @@ class ProductoController extends AbstractController
             );
     }
 
+
     /**
-     * @Route("/productos/filter", name="productos_filter")
+     * @Route("/-/filter", name="movies_filter")
      */
     public function filter(Request $request)
     {
         $text = $request->query->getAlnum("text");
-        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $producto = $productoRepository->filterByText($text);
-        return $this->render('productos/productos_filter.html.twig', array(
-            'productos' => $producto
+        $movieRepository = $this->getDoctrine()->getRepository(Movie::class);
+        if (!empty($text))
+            $movies = $movieRepository->filterByText($text);
+        else
+            $movies = $movieRepository->findBy([], ["title" => "ASC"]);
+        return $this->render('movies_filter.html.twig', array(
+            'movies' => $movies
         ));
 
     }
+
 
     /**
      * @Route("/productos/create", name="movies_create")
