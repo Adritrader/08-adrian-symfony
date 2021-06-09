@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,12 +22,13 @@ class UsuarioType extends AbstractType
         $builder
             ->add('nombre', TextType::class)
             ->add('apellidos', TextType::class)
-            ->add('telefono', TextareaType::class)
+            ->add('telefono', TextType::class)
             ->add('email', EmailType::class)
             ->add('username', TextType::class)
             ->add('password', PasswordType::class)
             ->add('avatar', FileType::class)
-            ->add('create', SubmitType::class, array('label' => 'Create'));
+            ->add('role', TextType::class)
+            ->add('create', SubmitType::class, array('label' => 'Crear'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

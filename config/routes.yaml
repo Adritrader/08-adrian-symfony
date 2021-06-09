@@ -34,3 +34,7 @@ usuarios:
 login:
     path: /login
     controller: App\Controller\AuthController::index
+
+register:
+    path: /register
+    controller: App\Controller\UsuarioController::create

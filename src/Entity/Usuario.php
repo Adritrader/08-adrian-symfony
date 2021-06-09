@@ -156,6 +156,8 @@ class Usuario implements UserInterface
     {
         $this->role = $role;
 
+        $this->role = "ROLE_ADMIN";
+
         return $this;
     }
 

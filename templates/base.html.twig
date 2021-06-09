@@ -82,7 +82,7 @@
                        aria-expanded="false" href="/login" class="button-two">
                         Log in
                     </a>
-                    <a href="/usuario/create" class="button-two">Sign Up</a>
+                    <a href="/register" class="button-two">Sign Up</a>
 
 
 
@@ -123,6 +123,35 @@
                         <li class="nav-item enlaces">
                             <a class="nav-link" href="/tienda">Tienda</a>
                         </li>
+                        {% if (app.user) %}
+                            <li class="nav-item ">
+                                <a class="nav-item nav-link mr-md-2" id="bd-versions" aria-haspopup="false"
+                                   aria-expanded="false" href="{{ path('logout') }}">
+                                    Log out
+                                </a>
+                            </li>
+
+                        {% else %}
+                            <li class="nav-item ">
+                                <a class="nav-item nav-link mr-md-2" id="bd-versions" aria-haspopup="false"
+                                   aria-expanded="false" href="{{ path('login') }}">
+                                    Log in
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" aria-haspopup="false" aria-expanded="false"
+                                   href="">
+                                    Register
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-item nav-link"  aria-haspopup="false" aria-expanded="false"
+                                   href="   {{ path('admin') }}">Dashboard</a>
+                            </li>
+                        {% endif %}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a href="/">Home</a>
                             <a href="/servicios">Servicios</a>
