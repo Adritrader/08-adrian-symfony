@@ -30,11 +30,6 @@ usuarios:
     path: /usuario
     controller: App\Controller\UsuarioController::index
 
-
-login:
-    path: /login
-    controller: App\Controller\AuthController::index
-
 register:
     path: /register
     controller: App\Controller\UsuarioController::create

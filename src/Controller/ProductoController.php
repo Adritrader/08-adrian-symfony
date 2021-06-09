@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Movie;
 use App\Entity\Producto;
+use App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,25 +71,41 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("/productos/create", name="movies_create")
+     * @Route("/admin/create/product", name="create_product")
      */
-    public function create(Request $request)
+    public function createProduct(Request $request)
     {
-        $movie = new Movie();
-        $form = $this->createForm(MovieType::class, $movie);
+        $producto = new Producto();
+
+        $form = $this->createForm(ProductoType::class, $producto);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $movie = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($movie);
-            $entityManager->flush();
-            return $this->redirectToRoute('home');
-        }
-        return $this->render('movie/create.html.twig', array(
-            'form' => $form->createView()));
+            $producto = $form->getData();
+            if ($posterFile = $form['imagen']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+                dump($filename);
+                try {
+                    $projectDir = $this->getParameter('kernel.project_dir');
+                    $posterFile->move($projectDir . '/public/img/productos/', $filename);
+                    $producto->setAvatar($filename);
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'danger',
+                        $e->getMessage()
+                    );
+                    return $this->redirectToRoute('admin');
+                }
+            }
 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($producto);
+            $entityManager->flush();
+            return $this->redirectToRoute('back/back-productos.html.twig');
+        }
+        return $this->render('back/productos-create.html.twig', array(
+            'form' => $form->createView()));
     }
 
     /**
