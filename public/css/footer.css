@@ -4,20 +4,20 @@
 
 footer {
 
-    background-color: black;
+  background-color: black;
 
 }
 
 footer span {
 
-    font-size: 18px;
-    color: white;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-size: 18px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 p {
 
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 
@@ -25,83 +25,83 @@ p {
 
 .col-footer-enlaces {
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
 
 }
 
 .col-footer-enlaces a {
 
-    text-decoration: none;
-    font-size: 18px;
-    color: white;
-    line-height: 2.5;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  line-height: 2.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .col-footer-enlaces a:hover {
 
-    color: #a83874;
+  color: #a83874;
 
 }
 
 .col-footer-avisos-legales {
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
 
 }
 
 .col-footer-avisos-legales a {
 
-    text-decoration: none;
-    text-align: center;
-    font-size: 14px;
-    color: white;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .col-footer-avisos-legales a:hover {
 
-    color: #a83874;
+  color: #a83874;
 
 }
 
 
 .col-iconos-rrss {
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
 
 }
 
 .col-iconos-rrss img {
 
-    height: 40px;
-    width: 40px;
+  height: 40px;
+  width: 40px;
 
 
 }
 
 .fila-footer {
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
 
 }
 
 .fila-footer a {
 
-    text-align: center;
-    margin: 0;
+  text-align: center;
+  margin: 0;
 
 
 }
@@ -109,44 +109,44 @@ p {
 .fila-footer-politicas {
 
 
-    border-top: 2px solid gray;
+  border-top: 2px solid gray;
 
 
 }
 
 .fila-iconos-rrss {
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
 
 }
 
 .enlaces-first {
 
-    border-right: 2px solid white;
+  border-right: 2px solid white;
 
 
 }
 
 .mapa {
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
 }
 
 .mapa iframe {
 
-    margin-top: 40px;
+  margin-top: 40px;
 
 }
 
 .mapa p {
 
-    font-size: 12px;
-    color: white;
+  font-size: 12px;
+  color: white;
 
 }

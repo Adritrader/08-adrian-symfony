@@ -22,6 +22,9 @@
         <div class="col-1">
 
         </div>
+
+
+
         <div class="col-4 tienda-frontal">
             <div class="gallery-container w-3 h-3">
                 <div class="gallery-item">
@@ -100,71 +103,27 @@
             <h2>Destacados</h2>
             <hr>
             <div class="row productos-miniaturas">
-                <div class="col-2 miniatura"><img src="img/productos/kerastase-discipline.jpg"
-                                                  alt="kerastase-discipline">
-                    <span>27,50 €</span>
-                    <h2 class="nombre-producto">Kerastase Discipline</h2>
-                    <p class="producto-card-text">Kerastase Discipline es un térmico para el pelo. Destaca todo tipo
-                        de cabellos y repara las zonas dañadas. Disponible en envase de 500ml.</p>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
-                    </div>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
-                    </div>
-                </div>
-                <div class="col-2 miniatura"><img src="img/productos/kerastase-soleil-kit.jpg" alt="kerastase-kit">
-                    <span>82,50 €</span>
-                    <h2 class="nombre-producto">Kerastase Soleil Kit</h2>
-                    <p class="producto-card-text">Kerastase Soleil Kit se compone de una alta gama de productos para
-                        el pelo, champú, acondicionadores y aceites esenciales.</p>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
-                    </div>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
-                    </div>
+                {% if productos %}
+                    {% for producto in productos %}
+                        <div class="col-2 miniatura">
+                            <img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200">
+                            <span>{{producto.precio}}</span>
+                            <h2 class="nombre-producto">{{producto.nombre}}</h2>
+                            <p class="producto-card-text">{{producto.descripcion}}</p>
 
-                </div>
-                <div class="col-2 miniatura"><img src="img/productos/sebastian-mascarilla.jpg"
-                                                  alt="sebastian-mascarilla">
-                    <span>18,95 €</span>
-                    <h2 class="nombre-producto">Sebastian Penetrate</h2>
-                    <p class="producto-card-text">Mascarilla Sebastian Penetrate. Alta calidad, textura sedosa,
-                        después de cada aplicación el cabello tendrá un brillo y volumen únicos.</p>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
-                    </div>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
-                    </div>
+                            <div class="row justify-content-center">
+                                <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>No hay productos disponibles</h2>
+                {% endif %}
 
-                </div>
-                <div class="col-2 miniatura"><img src="img/productos/serum.jpg" alt="serum">
-                    <span>22,80 €</span>
-                    <h2 class="nombre-producto">Serum Capilar</h2>
-                    <p class="producto-card-text">Serum capilar. Recupera la salud de tu cabello, dale una textura
-                        sedosa gracias a la calidad del Serum Reparador Kalogen.</p>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
-                    </div>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
-                    </div>
 
-                </div>
-                <div class="col-2 miniatura"><img src="img/productos/ghd-plancha-pro.jpg" alt="ghd-plancha-pro">
-                    <span>244,95 €</span>
-                    <h2 class="nombre-producto">Plancha GHD Pro</h2>
-                    <p class="producto-card-text">Plancha GHD Proffesional Pro. Acabados profesionales y alta
-                        calidad. No daña el cabello y no lo quema. Textura sedosa.</p>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button>
-                    </div>
-                    <div class="row">
-                        <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -243,25 +202,5 @@
         </div>
     </div>
 </div>
-    <main>
-        <div class="container-fluid ">
-            <div class="row">
-                {% if productos %}
-                    {% for producto in productos %}
-                        <div class="col-3" style="text-align: center; border: 1px black solid">
-                            <img src="{{ producto.getImagen }}" height="200">
-                            <h4>{{producto.getNombre}}</h4>
-                            <p>{{producto.getDescripcion}}</p>
-                            <p>Categoria: {{producto.getCategoria}}</p>
-                            <h4>Precio: {{producto.getPrecio}}€</h4>
-                            <button class="btn btn-success">Comprar</button>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <h2>No hay productos disponibles</h2>
-                {% endif %}
-            </div>
-        </div>
-    </main>
 {% endblock %}
 
