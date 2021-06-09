@@ -4,3 +4,4 @@ twig:
 
     globals:
         pictures_public_directory: 'img/productos/'
+        avatar_public_directory: 'img/'

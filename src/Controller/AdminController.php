@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Movie;
 use App\Entity\Producto;
+use App\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,26 @@ class AdminController extends AbstractController
         else
             return $this->render('back/back-productos.html.twig', [
                     'productos' => null]
+            );
+    }
+
+    /**
+     * @Route("/back-usuarios", name="back-usuarios")
+     */
+
+    public function backUsuarios(): Response
+    {
+        $usuariosRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuarios = $usuariosRepository->findAll();
+
+        if ($usuarios)
+        {
+            return $this->render('back/back-usuarios.html.twig', ["usuarios"=>$usuarios]
+            );
+        }
+        else
+            return $this->render('back/back-usuarios.html.twig', [
+                    'usuarios' => null]
             );
     }
 

@@ -60,7 +60,7 @@ class UsuarioController extends AbstractController
                 dump($filename);
                 try {
                     $projectDir = $this->getParameter('kernel.project_dir');
-                    $posterFile->move($projectDir . '/public/images/posters/', $filename);
+                    $posterFile->move($projectDir . '/public/img/', $filename);
                     $usuario->setAvatar($filename);
                 } catch (FileException $e) {
                     $this->addFlash(
