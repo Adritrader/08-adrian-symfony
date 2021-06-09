@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario implements UserInterface
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -156,23 +156,52 @@ class Usuario implements UserInterface
     {
         $this->role = $role;
 
-        $this->role = "ROLE_ADMIN";
-
         return $this;
     }
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+
+        return [$this->role];
+
     }
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return null;
     }
 
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+    /**
+     * String representation of object.
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string|null The string representation of the object or null
+     * @throws Exception Returning other type than string or null
+     */
+    public function serialize(): ?string
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUsername(),
+            $this->getPassword()
+        ]);
+    }
+
+    /**
+     * Constructs the object.
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized The string representation of the object.
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list( $this->id, $this->username, $this->password) =
+            unserialize($serialized, ['allowed_classes' => false]);
+    }
 }
+
+
