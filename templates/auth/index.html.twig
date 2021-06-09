@@ -25,18 +25,24 @@
             </div>
             -->
 
+            {% if error %}
+                <div class="alert alert-login" role="alert">
+                    {{ error.messageKey }}
+                </div>
+            {% endif %}
+
             <form class="mt-5 bg-light p-4" method="post" novalidate>
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control"
-                           name="username" id="username"
+                           name="_username" id="username"
                            value=""
                            placeholder="Username:" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="text" class="form-control"
-                           name="password" id="password"
+                           name="_password" id="password"
                            value=""
                            placeholder="Password:" required>
                 </div>

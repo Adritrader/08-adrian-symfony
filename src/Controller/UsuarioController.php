@@ -56,7 +56,7 @@ class UsuarioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $usuario = $form->getData();
             if ($posterFile = $form['avatar']->getData()) {
-                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension("");
                 dump($filename);
                 try {
                     $projectDir = $this->getParameter('kernel.project_dir');
@@ -67,7 +67,7 @@ class UsuarioController extends AbstractController
                         'danger',
                         $e->getMessage()
                     );
-                    return $this->redirectToRoute('admin');
+                    return $this->redirectToRoute('auth/index.html.twig');
                 }
             }
 
