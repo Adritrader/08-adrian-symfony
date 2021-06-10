@@ -6,7 +6,7 @@
 
     <div class="container-fluid">
         <div class="row fila-inputs-productos">
-            <div class="col-4">
+            <div class="col-7 bg-light" style="border: 2px solid black">
                 <form method="post" action=""
                       class="form-inline">
                     <div class="form-group">
@@ -14,7 +14,7 @@
                                value=""
                                type="text" placeholder="Buscar" aria-label="Search">
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline ml-3">
                         <label class="form-check-label">
                             <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
                         </label>
@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <div><a style="text-decoration: none; color: white" class="btn btn-primary" href="/back-usuarios/create"><button class="button-two">
+                    <div><a style="text-decoration: none; color: white" class="btn" href="/back-usuarios/create"><button class="button-two">
                                 <i class="fa fa-plus-circle">
                                 </i> Añadir usuario</button></a>
                     </div>
@@ -58,19 +58,19 @@
                         {% if usuarios %}
                             {% for usuario in usuarios %}
                                 <tr>
-                                    <td><img src="{{ asset(avatar_public_directory ~  usuario.avatar)}}" height="200"></td>
-                                    <td>{{ usuario.nombre }}</td>
-                                    <td>{{ usuario.username }}</td>
-                                    <td>{{ usuario.telefono }}</td>
-                                    <td>{{ usuario.email}}</td>
-                                    <td style="width: 140px"><a href="/usuarios/{{ usuario.id }}/edit">
-                                            <button type="button" class="button-two"><i class="fa fa-edit"></i> Editar</button>
+                                    <td class="text-center"><img src="{{ asset(avatar_public_directory ~  usuario.avatar)}}" height="200"></td>
+                                    <td class="text-center">{{ usuario.nombre }}</td>
+                                    <td class="text-center">{{ usuario.username }}</td>
+                                    <td class="text-center">{{ usuario.telefono }}</td>
+                                    <td class="text-center">{{ usuario.email}}</td>
+                                    <td class="text-center" style="width: 140px"><a href="/usuarios/{{ usuario.id }}/edit">
+                                            <button type="button" class="button-two my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
                                         <a href="">
-                                            <button type="button" class="button-two"><i class="fa fa-trash"></i> Borrar</button>
+                                            <button type="button" class="button-two my-1"><i class="fa fa-trash"></i> Borrar</button>
                                         </a>
                                         <a href="">
-                                            <button type="button" class="button-two"><i class="fa fa-trash"></i>Ver</button>
+                                            <button type="button" class="button-two my-1"><i class="fa fa-eye"></i>Ver</button>
                                         </a>
                                     </td>
                                 </tr>

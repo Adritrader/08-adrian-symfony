@@ -16,20 +16,31 @@
     <div class="row fila-formulario justify-content-center">
         <div class="form-style-3 col-3 col-formulario">
 
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        <i class="fas fa-check-circle mx-2"></i>
+                        {{ message }}
+
+                    </div>
+                {% endfor %}
+
+                {% for message in app.flashes('danger') %}
+                <div class="alert alert-error mt-3" role="alert">
+                    <i class="fas fa-exclamation-circle mx-2"></i>
+                    {{ message }}
+
+                </div>
+                {% endfor %}
+
             <!-- Alertas
             <div class="alert alerta-login" role="alert">
+
 
             </div>
 
             <div class="alert alerta-login" role="alert">
             </div>
             -->
-
-            {% if error %}
-                <div class="alert alert-login" role="alert">
-                    {{ error.messageKey }}
-                </div>
-            {% endif %}
 
             <form class="mt-5 bg-light p-4" method="post" novalidate>
                 <div class="form-group">

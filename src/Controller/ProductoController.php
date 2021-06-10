@@ -102,6 +102,7 @@ class ProductoController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($producto);
             $entityManager->flush();
+            $this->addFlash('success', "El producto " . $producto->getProducto() . " se ha creado correctamente");
             return $this->redirectToRoute('admin');
         }
         return $this->render('back/productos-create.html.twig', array(

@@ -53,17 +53,14 @@ class UsuarioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $usuario = $form->getData();
             if ($posterFile = $form['avatar']->getData()) {
-                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension("");
-                dump($filename);
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+
                 try {
                     $projectDir = $this->getParameter('kernel.project_dir');
                     $posterFile->move($projectDir . '/public/img/', $filename);
                     $usuario->setAvatar($filename);
                 } catch (FileException $e) {
-                    $this->addFlash(
-                        'danger',
-                        $e->getMessage()
-                    );
+                    $this->addFlash('danger', $e->getMessage());
                     return $this->redirectToRoute('login');
                 }
             }
@@ -71,6 +68,7 @@ class UsuarioController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();
+            $this->addFlash('success', "Se ha registrado correctamente");
             return $this->redirectToRoute('login');
         }
         return $this->render('auth/register.html.twig', array(
