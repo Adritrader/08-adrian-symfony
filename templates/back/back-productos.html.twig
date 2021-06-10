@@ -6,7 +6,7 @@
 
     <div class="container-fluid">
         <div class="row fila-inputs-productos">
-            <div class="col-4">
+            <div class="col-7 bg-light" style="border: 2px solid black">
                 <form method="post" action=""
                       class="form-inline">
                     <div class="form-group">
@@ -14,7 +14,7 @@
                                value=""
                                type="text" placeholder="Buscar" aria-label="Search">
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline ml-3">
                         <label class="form-check-label">
                             <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
                         </label>
@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <div><a style="text-decoration: none; color: white" class="btn btn-primary" href="/back-productos/create"><button class="button-two">
+                    <div><a style="text-decoration: none; color: white" class="btn" href="/back-productos/create"><button class="button-two">
                                 <i class="fa fa-plus-circle">
                                 </i> Añadir producto</button></a>
                     </div>
@@ -58,16 +58,19 @@
                         {% if productos %}
                             {% for producto in productos %}
                                 <tr>
-                                    <td><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200"></td>
-                                    <td>{{producto.nombre}}</td>
-                                    <td>{{  producto.categoria }}</td>
-                                    <td>{{ producto.descripcion }}</td>
-                                    <td>{{ producto.precio}}</td>
-                                    <td style="width: 140px"><a href="/productos/{{ producto.id }}/edit">
-                                            <button type="button" class="button-two"><i class="fa fa-edit"></i> Editar</button>
+                                    <td class="text-center"><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200"></td>
+                                    <td class="text-center">{{producto.nombre}}</td>
+                                    <td class="text-center">{{  producto.categoria }}</td>
+                                    <td class="text-center">{{ producto.descripcion }}</td>
+                                    <td class="text-center">{{ producto.precio}}</td>
+                                    <td class="text-center" style="width: 140px"><a href="/productos/{{ producto.id }}/edit">
+                                            <button type="button" class="button-two my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
                                         <a href="">
-                                            <button type="button" class="button-two"><i class="fa fa-trash"></i> Borrar</button>
+                                            <button type="button" class="button-two my-1"><i class="fa fa-trash"></i> Borrar</button>
+                                        </a>
+                                        <a href="">
+                                            <button type="button" class="button-two my-1"><i class="fa fa-eye"></i> Ver</button>
                                         </a>
                                     </td>
                                 </tr>

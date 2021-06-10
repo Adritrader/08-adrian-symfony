@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
 use App\Entity\Producto;
 use App\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,27 +71,4 @@ class AdminController extends AbstractController
             );
     }
 
-    /**
-     * @Route("/back-productos/create", name="productos_create")
-     */
-    public function create(Request $request)
-    {
-        $producto = new Producto();
-        $form = $this->createForm(Producto::class, $producto);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $producto = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($producto);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('back/index.html.twig');
-        }
-        return $this->render('back/create-producto.html.twig', array(
-            'form' => $form->createView()));
-
-    }
 }

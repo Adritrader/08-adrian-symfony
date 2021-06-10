@@ -53,25 +53,25 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("/-/filter", name="movies_filter")
+     * @Route("/back-productos", name="back-productos")
      */
     public function filter(Request $request)
     {
         $text = $request->query->getAlnum("text");
-        $movieRepository = $this->getDoctrine()->getRepository(Movie::class);
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         if (!empty($text))
-            $movies = $movieRepository->filterByText($text);
+            $productos = $productoRepository->filterByText($text);
         else
-            $movies = $movieRepository->findBy([], ["title" => "ASC"]);
-        return $this->render('movies_filter.html.twig', array(
-            'movies' => $movies
+            $productos = $productoRepository->findBy([], ["nombre" => "ASC"]);
+        return $this->render('back/back-productos.html.twig', array(
+            'productos' => $productos
         ));
 
     }
 
 
     /**
-     * @Route("/admin/create/product", name="create_product")
+     * @Route("/back-productos/create", name="create_product")
      */
     public function createProduct(Request $request)
     {
@@ -89,7 +89,7 @@ class ProductoController extends AbstractController
                 try {
                     $projectDir = $this->getParameter('kernel.project_dir');
                     $posterFile->move($projectDir . '/public/img/productos/', $filename);
-                    $producto->setAvatar($filename);
+                    $producto->setImagen($filename);
                 } catch (FileException $e) {
                     $this->addFlash(
                         'danger',
@@ -102,7 +102,7 @@ class ProductoController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($producto);
             $entityManager->flush();
-            return $this->redirectToRoute('back/back-productos.html.twig');
+            return $this->redirectToRoute('admin');
         }
         return $this->render('back/productos-create.html.twig', array(
             'form' => $form->createView()));

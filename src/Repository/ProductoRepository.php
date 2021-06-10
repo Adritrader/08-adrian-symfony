@@ -19,6 +19,23 @@ class ProductoRepository extends ServiceEntityRepository
         parent::__construct($registry, Producto::class);
     }
 
+
+    /**
+     * @return Producto[] Returns an array of Producto objects
+     */
+
+    public function filterByText(string $text): array
+    {
+        $qb = $this->createQueryBuilder('pro')
+            ->orWhere('pro.nombre LIKE :value')
+            ->orWhere('pro.descripcion LIKE :value');
+
+        $qb->setParameter('value', "%".$text."%");
+        $qb->orderBy('pro.nombre', 'ASC');
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Producto[] Returns an array of Producto objects
     //  */

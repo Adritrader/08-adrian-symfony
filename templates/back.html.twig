@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/table.css') }}">
         <link rel="stylesheet" href="{{ asset('css/template-grid3.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css">
 
     {% endblock %}
@@ -21,38 +22,33 @@
 <header>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-header">
-                <div class="container-fluid headerContainer">
-                    <div class="row fila-header">
+            <div class="col-12 bg-light">
+                <div class="container-fluid">
+                    <div class="row bg-dark">
 
-                        <div class="col-2 header-logo">
+                        <div class="col-2">
                             <a href="/back-index"><img class="logo" src="/img/logo-bueno.png"
                                                        alt="logo"></a>
 
                         </div>
 
-                        <div class="col-1 navbar iconos-header">
-                            <a href="#"><i class="far fa-envelope"></i></a>
-                            <a href="#"><i class="far fa-bell"></i></a>
-
-
-                        </div>
-
-                        <div class="col-6 mt-5">
-                            <div style="margin-top: 205px !important;">
+                        <div class="col-9">
+                            <div>
                                 <a href="../">
-                                    <button type="button" class="btn"><i class="fas fa-home"></i>Home</button>
+                                    <button type="button" class="button-five"><i class="fas fa-home mx-1"></i>Home</button>
                                 </a>
                             </div>
+                        </div>
+
+                        <div class="col-1" style="top: 220px !important;">
+                            <a href="#" class="mx-3"><i class="far fa-envelope text-info"></i></a>
+                            <a href="#" class="mx-3"><i class="far fa-bell text-warning"></i></a>
+
 
                         </div>
-                        <div class="col-3">
-                            <div class="topnav">
 
-                                <input type="text" placeholder="Buscar..">
-                                <a href="#"><i class="fas fa-search"></i></a>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -62,16 +58,16 @@
 
 
 <main>
-    <div class="row navbar-vertical">
-        <div class="col-12 col-navbar">
+    <div class="row navbar-vertical bg-dark ml-2">
+        <div class="col-12 col-navbar bg-dark">
             <div class="sidebar">
-                <a href="/admin"><i class="far fa-calendar-alt"></i>HOME</a>
-                <a href="/back-reservas"><i class="far fa-calendar-alt"></i>CALENDARIO RESERVAS</a>
-                <a href="/back-galeria"><i class="far fa-images"></i>GALERIA</a>
-                <a href="/back-blog"><i class="fab fa-blogger-b"></i>BLOG</a>
-                <a href="/back-productos"><i class="fas fa-store-alt"></i>PRODUCTOS</a>
-                <a href="/back-pedidos"><i class="far fa-newspaper"></i>PEDIDOS</a>
-                <a href="/back-usuarios"><i class="fas fa-user"></i>USUARIOS</a>
+                <a href="/admin" class="bg-dark mx-2"><i class="far fa-calendar-alt"></i>HOME</a>
+                <a href="/back-reservas" class="bg-dark mx-2"><i class="far fa-calendar-alt"></i>CALENDARIO RESERVAS</a>
+                <a href="/back-galeria" class="bg-dark mx-2"><i class="far fa-images"></i>GALERIA</a>
+                <a href="/back-blog" class="bg-dark mx-2"><i class="fab fa-blogger-b"></i>BLOG</a>
+                <a href="/back-productos" class="bg-dark mx-2"><i class="fas fa-store-alt"></i>PRODUCTOS</a>
+                <a href="/back-pedidos" class="bg-dark mx-2"><i class="far fa-newspaper"></i>PEDIDOS</a>
+                <a href="/back-usuarios" class="bg-dark mx-2"><i class="fas fa-user"></i>USUARIOS</a>
             </div>
         </div>
     </div>
