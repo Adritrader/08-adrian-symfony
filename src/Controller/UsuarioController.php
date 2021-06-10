@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UsuarioController extends AbstractController
 {
     /**
-     * @Route("/perfil/{id}}", name="perfil", requirements={"id"="\d+"})
+     * @Route("/perfil/{id}", name="perfil", requirements={"id"="\d+"})
      */
     public function show(int $id)
     {
