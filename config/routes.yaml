@@ -33,3 +33,5 @@ usuarios:
 register:
     path: /register
     controller: App\Controller\UsuarioController::create
+logout:
+    path: /logout

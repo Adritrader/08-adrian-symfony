@@ -20,24 +20,21 @@ use Symfony\Component\HttpFoundation\Request;
 class UsuarioController extends AbstractController
 {
     /**
-     * @Route("/usuario", name="usuario")
+     * @Route("/perfil/{id}}", name="perfil", requirements={"id"="\d+"})
      */
-    public function index(): Response
+    public function show(int $id)
     {
-
-        $usuario = new Usuario();
-        $form = $this->createFormBuilder($usuario)
-            ->add('nombre', TextType::class)
-            ->add('apellidos', TextType::class)
-            ->add('overview', TextareaType::class)
-            ->add('releaseDate', DateType::class)
-            ->add('poster', TextType::class)
-            ->add('create', SubmitType::class, array('label' => 'Create'))
-            ->getForm();
-
-        return $this->render('usuario/index.html.twig',  array(
-            'form' => $form->createView()));
-
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuario = $usuarioRepository->find($id);
+        if ($usuario)
+        {
+            return $this->render('usuario/perfil.html.twig', ["usuario"=>$usuario]
+            );
+        }
+        else
+            return $this->render('usuario/perfil.html.twig', [
+                    'usuario' => null]
+            );
     }
 
 
