@@ -64,14 +64,14 @@ class UsuarioController extends AbstractController
                         'danger',
                         $e->getMessage()
                     );
-                    return $this->redirectToRoute('auth/index.html.twig');
+                    return $this->redirectToRoute('login');
                 }
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();
-            return $this->redirectToRoute('auth/index.html.twig');
+            return $this->redirectToRoute('login');
         }
         return $this->render('auth/register.html.twig', array(
             'form' => $form->createView()));
