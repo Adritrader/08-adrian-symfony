@@ -148,7 +148,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/admin/usuarios/delete/{id}", name="productos_delete")
+     * @Route("/admin/usuarios/delete/{id}", name="usuarios_delete")
      */
     public function delete(int $id)
     {

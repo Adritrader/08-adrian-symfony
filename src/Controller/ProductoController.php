@@ -127,7 +127,7 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/admin/productos/edit/{id}", name="movies_edit")
+     * @Route("/admin/productos/edit/{id}", name="productos_edit")
      */
     public function editProduct(int $id, Request $request)
     {

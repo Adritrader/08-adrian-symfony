@@ -23,6 +23,8 @@ class AdminController extends AbstractController
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $productos = $productoRepository->findAll();
+        $usuariosRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuarios = $usuariosRepository->findAll();
 
         if ($productos)
         {
@@ -34,6 +36,8 @@ class AdminController extends AbstractController
                     'productos' => null]
             );
     }
+
+
 
     /**
      * @Route("/productos", name="admin_productos")

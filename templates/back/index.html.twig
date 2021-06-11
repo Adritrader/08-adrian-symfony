@@ -24,68 +24,57 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="row fila-inputs-productos">
-            <div class="col-7 bg-light" style="border: 2px solid black">
 
-                <form method="post" action=""
-                class="form-inline">
-                <div class="form-group">
-                    <input name="text"
-                           value=""
-                    type="text" placeholder="Buscar" aria-label="Search">
-                </div>
-                <div class="form-check-inline ml-3">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
-                    </label>
-                </div>
-                <div class="form-check-inline">
-                    <label class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="optradio" id="descripcion" value="descripcion">&nbsp;Descripcion                        &nbsp;
-                    </label></div>
-                <div class="form-check-inline">
-                    <label class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos                        &nbsp;
-                    </label>
-                </div>
-                <div class="form-group">
-                    <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit" name="botonFiltrar">Buscar</button>
-                </div>
-                </form>
-            </div>
 
-        </div>
-
-        <div class="container">
+        <div class="container-fluid mt-5">
             <div class="row">
-                <div class="col-4">
-                    <table id="tabla-productos">
-                        <tr>
-                            <th>Imagen</th>
-                            <th>Nombre <a href="/movies?order=title&&tipo=ASC"><i
-                                            class="fa fa-arrow-down"></i></a>
-                                <a href="/movies?order=title&&tipo=DESC"><i
-                                            class="fa fa-arrow-up"></i></a></th>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                        </tr>
+                <div class="col-2 mx-4">
+
+
+                </div>
+                <div class="card col-4 mt-3 mr-3" style="width: 18rem;">
+                    <div class="card-header">
+                        Últimos productos añadidos
+                    </div>
+                    <div class="list-group list-group-flush">
+
                         {% if productos %}
                         {% for producto in productos %}
-                        <tr>
-                            <td><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200"></td>
-                            <td>{{producto.nombre}}</td>
-                            <td>{{  producto.categoria }}</td>
-                            <td>{{ producto.descripcion }}</td>
-                            <td>{{ producto.precio}}</td>
-                        </tr>
+
+                        <div class="list-group-item">
+                            <img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="50" width="50">
+                            <span class="text-center mx-3">{{producto.nombre}}</span>
+                            <span class="text-center mx-3">{{producto.categoria}}</span>
+                            <span class="text-center mx-3">{{producto.precio}}</span>
+                        </div>
+
                         {% endfor %}
                         {% else %}
-                            <h2>No hay productos disponibles</h2>
+                            <h2>No hay usuarios disponibles</h2>
                         {% endif %}
-                    </table>
+                    </div>
+                </div>
+                <div class="card col-4 mt-3 mx-5" style="width: 18rem;">
+                    <div class="card-header">
+                        Últimos usuarios añadidos
+                    </div>
+                    <div class="list-group list-group-flush">
 
+                        {% if productos %}
+                            {% for producto in productos %}
 
+                                <div class="list-group-item">
+                                    <img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="50" width="50">
+                                    <span class="text-center mx-3">{{producto.nombre}}</span>
+                                    <span class="text-center mx-3">{{producto.categoria}}</span>
+                                    <span class="text-center mx-3">{{producto.precio}}</span>
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+                            <h2>No hay usuarios disponibles</h2>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
