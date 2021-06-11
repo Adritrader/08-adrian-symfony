@@ -32,6 +32,8 @@ class ProductoRepository extends ServiceEntityRepository
 
         $qb->setParameter('value', "%".$text."%");
         $qb->orderBy('pro.nombre', 'ASC');
+        $qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
         $query = $qb->getQuery();
         return $query->getResult();
     }

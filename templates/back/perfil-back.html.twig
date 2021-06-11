@@ -1,0 +1,59 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Juan Bisquert | Peluqueria{% endblock %}
+
+{% block body %}
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/perfil.css">
+
+
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-7" style="margin-top: 10px">
+                <a href="../"><button class="button-four bg-danger"><i class="fas fa-chevron-circle-left mx-1"></i>Atrás</button></a></div>
+
+        </div>
+
+        <div class="row py-2 px-2 mx-2">
+            <div class="col-3"></div>
+            <div class="col-4">
+                <a href="/perfil/{{  usuario.id }}/verReservas"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
+                <a href="/perfil/{{  usuario.id }}/verPedidos"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
+            </div>
+
+            <!--MESSAGE
+
+              <div class="alert alerta-login" role="alert">
+
+
+              </div>
+
+              -->
+
+            <div class="row justify-content-center">
+            <div class="card col-lg-6 col-md-6 py-2 justify-content-center">
+                <div class="card col-lg-3 col-md-6 py-2">
+                    <img class="rounded w-100" src="{{asset(avatar_public_directory ~ usuario.avatar)}}" alt="poster">
+                </div>
+                <input type="hidden" name="id" value="{{  usuario.id }}">
+                <h2><strong>Nombre:</strong>{{  usuario.nombre }}</h2>
+                <h2><strong>Apellidos:</strong>{{  usuario.apellidos }}</h2>
+                <h2 class="card-title"><strong>Username:</strong>{{  usuario.username }}</h2>
+                <h2 class="text-muted mt-2"><strong>Email:</strong>{{  usuario.email }}</h2>
+                <h2><strong>Teléfono:</strong>{{  usuario.telefono }}</h2>
+
+            </div>
+
+            </div>
+
+            <div class="col-3"></div>
+            <div class="col-4">
+
+                <a href="/usuarios/{{  usuario.id }}/editPerfil"><button class="button-five"><i class="fa fa-edit mr-1"></i>Editar</button></a>
+                <a href="/usuarios/{{  usuario.id }}/editPass"><button class="button-five"><i class="fa fa-edit mr-1"></i>Cambiar Password</button></a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

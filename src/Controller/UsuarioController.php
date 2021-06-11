@@ -37,6 +37,24 @@ class UsuarioController extends AbstractController
             );
     }
 
+    /**
+     * @Route("admin/usuarios/perfil/{id}", name="perfil_back", requirements={"id"="\d+"})
+     */
+    public function showUserBack(int $id)
+    {
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuario = $usuarioRepository->find($id);
+        if ($usuario)
+        {
+            return $this->render('back/perfil-back.html.twig', ["usuario"=>$usuario]
+            );
+        }
+        else
+            return $this->render('back/perfil-back.html.twig', [
+                    'usuario' => null]
+            );
+    }
+
 
 
     /**

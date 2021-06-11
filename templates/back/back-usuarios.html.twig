@@ -6,8 +6,9 @@
 
     <div class="container-fluid">
         <div class="row fila-inputs-productos">
-            <div class="col-7 bg-light" style="border: 2px solid black">
-                <form method="post" action=""
+            <div class="col-2"></div>
+            <div class="col-7 col-lg-7 col-sm-10 mr-4 bg-light" style="border: 2px solid black">
+                <form method="get" action="usuarios/filter"
                       class="form-inline">
                     <div class="form-group">
                         <input name="text"
@@ -16,71 +17,94 @@
                     </div>
                     <div class="form-check-inline ml-3">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Username
+                            &nbsp;
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <label class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="optradio" id="descripcion" value="descripcion">&nbsp;Descripcion                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="role" value="rol">&nbsp;Rol
+                            &nbsp;
                         </label></div>
                     <div class="form-check-inline">
                         <label class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos
+                            &nbsp;
                         </label>
                     </div>
                     <div class="form-group">
-                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit" name="botonFiltrar">Buscar</button>
+                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit"
+                                name="botonFiltrar">Buscar
+                        </button>
                     </div>
                 </form>
             </div>
 
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <div><a style="text-decoration: none; color: white" class="btn" href="/back-usuarios/create"><button class="button-two">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-3 col-lg-6 ml-3">
+                    <div><a style="text-decoration: none; color: white" class="btn" href="/usuarios/create">
+                            <button class="button-four bg-dark">
                                 <i class="fa fa-plus-circle">
-                                </i> Añadir usuario</button></a>
+                                </i> Añadir usuario
+                            </button>
+                        </a>
                     </div>
-                    <table id="tabla-productos">
-                        <tr>
-                            <th>Avatar</th>
-                            <th>Nombre <a href="/movies?order=title&&tipo=ASC"><i
-                                            class="fa fa-arrow-down"></i></a>
-                                <a href="/movies?order=title&&tipo=DESC"><i
-                                            class="fa fa-arrow-up"></i></a></th>
-                            <th>Username</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                        {% if usuarios %}
-                            {% for usuario in usuarios %}
-                                <tr>
-                                    <td class="text-center"><img src="{{ asset(avatar_public_directory ~  usuario.avatar)}}" height="200"></td>
-                                    <td class="text-center">{{ usuario.nombre }}</td>
-                                    <td class="text-center">{{ usuario.username }}</td>
-                                    <td class="text-center">{{ usuario.telefono }}</td>
-                                    <td class="text-center">{{ usuario.email}}</td>
-                                    <td class="text-center" style="width: 140px"><a href="/usuarios/{{ usuario.id }}/edit">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-edit"></i> Editar</button>
-                                        </a>
-                                        <a href="">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-trash"></i> Borrar</button>
-                                        </a>
-                                        <a href="">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-eye"></i>Ver</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                            <h2>No hay usuarios disponibles</h2>
-                        {% endif %}
-                    </table>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-start">
+                    <div class="col-3"></div>
+                    <div class="col-lg-8 col-8">
+                        <table>
+                            <tr>
+                                <th class="text-center">Avatar</th>
+                                <th class="text-center">Nombre <a href="/movies?order=title&&tipo=ASC"><i
+                                                class="fa fa-arrow-down"></i></a>
+                                    <a href="/movies?order=title&&tipo=DESC"><i
+                                                class="fa fa-arrow-up"></i></a></th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Rol</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                            {% if usuarios %}
+                                {% for usuario in usuarios %}
+                                    <tr>
+                                        <td class="text-center"><img
+                                                    src="{{ asset(avatar_public_directory ~  usuario.avatar) }}"
+                                                    height="125" width="125"></td>
+                                        <td class="text-center">{{ usuario.nombre }}</td>
+                                        <td class="text-center">{{ usuario.username }}</td>
+                                        <td class="text-center">{{ usuario.role }}</td>
+                                        <td class="text-center">{{ usuario.email }}</td>
+                                        <td class="text-center" style="width: 140px"><a
+                                                    href="/usuarios/{{ usuario.id }}/edit">
+                                                <button type="button" class="button-two my-1"><i class="fa fa-edit"></i>
+                                                    Editar
+                                                </button>
+                                            </a>
+                                            <a href="">
+                                                <button type="button" class="button-two my-1"><i
+                                                            class="fa fa-trash"></i> Borrar
+                                                </button>
+                                            </a>
+                                            <a href="usuarios/perfil/{{ usuario.id }}">
+                                                <button type="button" class="button-two my-1"><i class="fa fa-eye"></i>Ver
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <h2>No hay usuarios disponibles</h2>
+                            {% endif %}
+                        </table>
 
 
+                    </div>
                 </div>
             </div>
         </div>

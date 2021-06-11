@@ -136,7 +136,7 @@ class ProductoController extends AbstractController
     /**
      * @Route("/admin/productos/edit/{id}", name="movies_edit")
      */
-    public function edit(int $id, Request $request)
+    public function editProduct(int $id, Request $request)
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
