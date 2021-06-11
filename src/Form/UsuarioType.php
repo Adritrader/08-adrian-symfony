@@ -26,7 +26,10 @@ class UsuarioType extends AbstractType
             ->add('email', EmailType::class)
             ->add('username', TextType::class)
             ->add('password', PasswordType::class)
-            ->add('avatar', FileType::class)
+            ->add('avatar', FileType::class, array(
+                "attr" =>array("class" => "form-control"),
+                "data_class" => null
+                ))
             ->add('role', TextType::class)
             ->add('create', SubmitType::class, array('label' => 'Crear'));
     }

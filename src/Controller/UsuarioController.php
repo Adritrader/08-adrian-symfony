@@ -92,4 +92,59 @@ class UsuarioController extends AbstractController
         return $this->render('auth/register.html.twig', array(
             'form' => $form->createView()));
     }
+
+    /**
+     * @Route("/admin/usuarios/edit/{id}", name="usuarios_edit")
+     */
+    public function editProduct(int $id, Request $request)
+    {
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuarios = $usuarioRepository->find($id);
+        $form = $this->createForm(UsuarioType::class, $usuarios);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $usuarios = $form->getData();
+            if ($posterFile = $form['avatar']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+
+                try {
+                    $projectDir = $this->getParameter('kernel.project_dir');
+                    $posterFile->move($projectDir . '/public/img/', $filename);
+                    $usuarios->setAvatar($filename);
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'danger',
+                        $e->getMessage()
+                    );
+                    return $this->redirectToRoute('admin');
+                }
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($usuarios);
+            $entityManager->flush();
+            $this->addFlash('success', "El usuario " . $usuarios->getNombre() . " ha sido editado correctamente!");
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('usuario/usuario-edit.html.twig', array(
+            'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/admin/usuarios/delete/{id}", name="productos_delete")
+     */
+    public function delete(int $id)
+    {
+        $entityManager =$this->getDoctrine()->getManager();
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuario = $usuarioRepository->find($id);
+
+        if ($usuario) {
+            $entityManager->remove($usuario);
+            $entityManager->flush();
+            $this->addFlash('success', "El usuario " . $usuario->getNombre() . " ha sido eliminado correctamente!");
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('back/back-usuarios.html.twig');
+    }
 }
