@@ -6,8 +6,9 @@
 
     <div class="container-fluid">
         <div class="row fila-inputs-productos">
-            <div class="col-7 bg-light" style="border: 2px solid black">
-                <form method="post" action=""
+            <div class="col-2"></div>
+            <div class="col-7 col-lg-7 col-sm-10 mr-4 bg-light" style="border: 2px solid black">
+                <form method="get" action=""
                       class="form-inline">
                     <div class="form-group">
                         <input name="text"
@@ -36,41 +37,49 @@
 
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <div><a style="text-decoration: none; color: white" class="btn" href="/back-productos/create"><button class="button-two">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+
+                <div class="col-3 col-lg-6 ml-3">
+                    <div>
+                        <a style="text-decoration: none; color: white" class="btn" href="/back-productos/create"><button class="button-four bg-dark">
                                 <i class="fa fa-plus-circle">
                                 </i> Añadir producto</button></a>
                     </div>
-                    <table id="tabla-productos">
+                </div>
+            </div>
+                <div class="container-fluid">
+                    <div class="row justify-content-start">
+                        <div class="col-3"></div>
+                        <div class="col-lg-8 col-8">
+                    <table>
                         <tr>
-                            <th>Imagen</th>
-                            <th>Nombre <a href="/movies?order=title&&tipo=ASC"><i
+                            <th class="text-center">Imagen</th>
+                            <th class="text-center">Nombre <a href="/movies?order=title&&tipo=ASC"><i
                                             class="fa fa-arrow-down"></i></a>
                                 <a href="/movies?order=title&&tipo=DESC"><i
                                             class="fa fa-arrow-up"></i></a></th>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th>Acciones</th>
+                            <th class="text-center">Categoría</th>
+                            <th class="text-center">Descripción</th>
+                            <th class="text-center">Precio</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                         {% if productos %}
                             {% for producto in productos %}
                                 <tr>
-                                    <td class="text-center"><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200"></td>
+                                    <td class="text-center"><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="125" width="125"></td>
                                     <td class="text-center">{{producto.nombre}}</td>
                                     <td class="text-center">{{  producto.categoria }}</td>
                                     <td class="text-center">{{ producto.descripcion }}</td>
                                     <td class="text-center">{{ producto.precio}}</td>
                                     <td class="text-center" style="width: 140px"><a href="/productos/{{ producto.id }}/edit">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-edit"></i> Editar</button>
+                                            <button type="button" class="button-five my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
                                         <a href="">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-trash"></i> Borrar</button>
+                                            <button type="button" class="button-five my-1"><i class="fa fa-trash"></i> Borrar</button>
                                         </a>
                                         <a href="">
-                                            <button type="button" class="button-two my-1"><i class="fa fa-eye"></i> Ver</button>
+                                            <button type="button" class="button-five my-1"><i class="fa fa-eye"></i> Ver</button>
                                         </a>
                                     </td>
                                 </tr>

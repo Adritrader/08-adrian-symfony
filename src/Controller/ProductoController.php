@@ -71,7 +71,7 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("/back-productos/create", name="create_product")
+     * @Route("/admin/productos/create", name="create_product")
      */
     public function createProduct(Request $request)
     {

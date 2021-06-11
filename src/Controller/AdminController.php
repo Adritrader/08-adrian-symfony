@@ -9,12 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AdminController
+ * @package App\Controller
+ * @Route ("/admin")
+ */
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/", name="admin")
      */
-
     public function index(): Response
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
@@ -32,7 +36,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/back-productos", name="back-productos")
+     * @Route("/productos", name="admin_productos")
      */
 
     public function backProductos(): Response
@@ -52,7 +56,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/back-usuarios", name="back-usuarios")
+     * @Route("/usuarios", name="admin_usuarios")
      */
 
     public function backUsuarios(): Response
