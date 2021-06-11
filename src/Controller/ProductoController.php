@@ -53,7 +53,7 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("/back-productos", name="back-productos")
+     * @Route("admin/productos/filter", name="back-productos")
      */
     public function filter(Request $request)
     {
