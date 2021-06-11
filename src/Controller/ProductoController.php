@@ -26,17 +26,14 @@ class ProductoController extends AbstractController
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $productos = $productoRepository->findAll();
 
-        if ($productos)
-        {
-            return $this->render('tienda.html.twig', ["productos"=>$productos]
+        if ($productos) {
+            return $this->render('tienda.html.twig', ["productos" => $productos]
             );
-        }
-        else
+        } else
             return $this->render('tienda.html.twig', [
                     'productos' => null]
             );
     }
-
 
 
     /**
@@ -46,12 +43,10 @@ class ProductoController extends AbstractController
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
-        if ($producto)
-        {
-            return $this->render('producto/producto_show.html.twig', ["producto"=>$producto]
+        if ($producto) {
+            return $this->render('producto/producto_show.html.twig', ["producto" => $producto]
             );
-        }
-        else
+        } else
             return $this->render('producto/producto_show.html.twig', [
                     'producto' => null]
             );
@@ -64,12 +59,10 @@ class ProductoController extends AbstractController
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
-        if ($producto)
-        {
-            return $this->render('producto/producto_show.html.twig', ["producto"=>$producto]
+        if ($producto) {
+            return $this->render('producto/producto_show.html.twig', ["producto" => $producto]
             );
-        }
-        else
+        } else
             return $this->render('producto/producto_show.html.twig', [
                     'producto' => null]
             );
@@ -139,30 +132,52 @@ class ProductoController extends AbstractController
     public function editProduct(int $id, Request $request)
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $producto = $productoRepository->find($id);
-
-        $form = $this->createFormBuilder($producto)
-            ->add('id', HiddenType::class)
-            ->add('nombre', TextType::class)
-            ->add('categoria', TextType::class)
-            ->add('descripcion', TextareaType::class)
-            ->add('precio', TextType::class)
-            ->add('imagen', FileType::class)
-            ->add('create', SubmitType::class, array('label' => 'Create'))
-            ->getForm();
-
+        $productos = $productoRepository->find($id);
+        $form = $this->createForm(ProductoType::class, $productos);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $producto = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($producto);
-            $entityManager->flush();
-            return $this->redirectToRoute('home');
-        }
+            $productos = $form->getData();
+            if ($posterFile = $form['imagen']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
 
+                try {
+                    $projectDir = $this->getParameter('kernel.project_dir');
+                    $posterFile->move($projectDir . '/public/img/productos/', $filename);
+                    $productos->setImagen($filename);
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'danger',
+                        $e->getMessage()
+                    );
+                    return $this->redirectToRoute('admin');
+                }
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($productos);
+            $entityManager->flush();
+            $this->addFlash('success', "El producto " . $productos->getNombre() . "ha sido editado correctamente!");
+            return $this->redirectToRoute('admin');
+        }
         return $this->render('back/productos-edit.html.twig', array(
             'form' => $form->createView()));
+    }
 
+    /**
+     * @Route("/admin/productos/delete/{id}", name="productos_delete")
+     */
+    public function delete(int $id)
+    {
+        $entityManager =$this->getDoctrine()->getManager();
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->find($id);
+
+        if ($producto) {
+            $entityManager->remove($producto);
+            $entityManager->flush();
+            $this->addFlash('success', "El producto " . $producto->getNombre() . " ha sido eliminado correctamente!");
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('back/back-productos.html.twig');
     }
 }

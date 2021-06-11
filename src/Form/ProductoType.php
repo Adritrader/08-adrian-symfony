@@ -19,13 +19,17 @@ class ProductoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', HiddenType::class)
+
             ->add('nombre', TextType::class)
             ->add('categoria', TextType::class)
             ->add('descripcion', TextareaType::class)
             ->add('precio', TextType::class)
-            ->add('imagen', FileType::class)
-            ->add('create', SubmitType::class, array('label' => 'Create'));
+            ->add('imagen', FileType::class,array(
+                "attr" =>array("class" => "form-control"),
+                "data_class" => null
+            ))
+
+            ->add('create', SubmitType::class, array('label' => 'Guardar'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
