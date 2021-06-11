@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 
+
 use App\Entity\Movie;
 use App\Entity\Producto;
 use App\Form\ProductoType;
@@ -9,6 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ProductoController extends AbstractController
 {
@@ -37,6 +43,24 @@ class ProductoController extends AbstractController
      * @Route("/productos/{$id}", name="productos_show", requirements={"id"="\d+"})
      */
     public function show(int $id)
+    {
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->find($id);
+        if ($producto)
+        {
+            return $this->render('producto/producto_show.html.twig', ["producto"=>$producto]
+            );
+        }
+        else
+            return $this->render('producto/producto_show.html.twig', [
+                    'producto' => null]
+            );
+    }
+
+    /**
+     * @Route("admin/productos/show/{id}", name="productos_showBack", requirements={"id"="\d+"})
+     */
+    public function showProBack(int $id)
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
@@ -110,43 +134,34 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/movies/{id}/edit", name="movies_edit")
+     * @Route("/admin/productos/edit/{id}", name="movies_edit")
      */
     public function edit(int $id, Request $request)
     {
-        $movieRepository = $this->getDoctrine()->getRepository(Movie::class);
-        $movie = $movieRepository->find($id);
-        var_dump($movie);
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->find($id);
 
-        $form = $this->createFormBuilder($movie)
+        $form = $this->createFormBuilder($producto)
             ->add('id', HiddenType::class)
-            ->add('title', TextType::class)
-            ->add('tagline', TextType::class)
-            ->add('overview', TextareaType::class)
-            ->add('releaseDate', DateType::class,
-                ['widget' => "single_text"]
-            )
-            ->add('poster', TextType::class)
-            ->add('genre', EntityType::class,
-                ['class' => Genre::class,
-                    'choice_label' => 'name',
-                    'placeholder' => 'Select a genre',
-                ]
-            )
+            ->add('nombre', TextType::class)
+            ->add('categoria', TextType::class)
+            ->add('descripcion', TextareaType::class)
+            ->add('precio', TextType::class)
+            ->add('imagen', FileType::class)
             ->add('create', SubmitType::class, array('label' => 'Create'))
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $movie = $form->getData();
+            $producto = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($movie);
+            $entityManager->persist($producto);
             $entityManager->flush();
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('movie/create.html.twig', array(
+        return $this->render('back/productos-edit.html.twig', array(
             'form' => $form->createView()));
 
     }

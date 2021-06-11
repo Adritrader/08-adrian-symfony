@@ -1,25 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Producto Show{% endblock %}
 
 {% block body %}
 
+<div class="container-fluid">
     <h1>Producto Data</h1>
     {% if producto %}
-        <div class="row py-2 px-2 mx-2">
-            <div class="card col-lg-3 col-md-6 py-2">
-                <img class="rounded w-100" src="{{asset('img/' ~ producto.imagen)}}" alt="poster">
+        <div class="row justify-content-center">
+            <div class="col-1" style="margin-top: -40px">
+            <a href="../"><button class="button-four bg-dark"><i class="fas fa-chevron-circle-left mx-1"></i>Atrás</button></a></div>
+            <div class="card col-lg-2 col-md-2 mx-2 mt-5">
+                <img class="rounded w-75" src="{{ asset(pictures_public_directory ~  producto.imagen)}}" alt="poster" height="200">
             </div>
 
-            <div class="card col-lg-9 col-md-6 py-2">
+
+            <div class="card col-lg-4 col-md-4 mx-2 mt-5">
                 <h1 class="card-title"><strong>Nombre:</strong> {{ producto.nombre }}</h1>
                 <p class="text-muted mt-2"><strong>Categoria:</strong> {{ producto.categoria }}</p>
-                <h2><em><strong>Descripcion:</strong> {{ producto.descripcion }}</h2>3
-                <h2><em><strong>Precio:</strong> {{ producto.precio }}</h2>
+                <h2><em><strong>Descripcion:</strong> {{ producto.descripcion }}</h2>
+                <h2><em><strong>Precio:</strong> {{ producto.precio }} €</h2>
             </div>
         </div>
     {% else %}
         <p>Producto not found</p>
     {% endif %}
+
+</div>
 
 {% endblock %}

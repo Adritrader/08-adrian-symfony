@@ -72,13 +72,13 @@
                                     <td class="text-center">{{  producto.categoria }}</td>
                                     <td class="text-center">{{ producto.descripcion }}</td>
                                     <td class="text-center">{{ producto.precio}}</td>
-                                    <td class="text-center" style="width: 140px"><a href="/productos/{{ producto.id }}/edit">
+                                    <td class="text-center" style="width: 140px"><a href="productos/edit/{{ producto.id }}">
                                             <button type="button" class="button-five my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
-                                        <a href="">
+                                        <a href="productos/{{ producto.id }}">
                                             <button type="button" class="button-five my-1"><i class="fa fa-trash"></i> Borrar</button>
                                         </a>
-                                        <a href="">
+                                        <a href="productos/show/{{ producto.id }}">
                                             <button type="button" class="button-five my-1"><i class="fa fa-eye"></i> Ver</button>
                                         </a>
                                     </td>
