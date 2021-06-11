@@ -38,6 +38,23 @@ class UsuarioController extends AbstractController
     }
 
     /**
+     * @Route("admin/usuarios/filter", name="usuarios_filter")
+     */
+    public function filter(Request $request)
+    {
+        $text = $request->query->getAlnum("text");
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        if (!empty($text))
+            $usuarios = $usuarioRepository->filterByText($text);
+        else
+            $usuarios = $usuarioRepository->findBy([], ["nombre" => "ASC"]);
+        return $this->render('back/back-usuarios.html.twig', array(
+            'usuarios' => $usuarios
+        ));
+
+    }
+
+    /**
      * @Route("admin/usuarios/perfil/{id}", name="perfil_back", requirements={"id"="\d+"})
      */
     public function showUserBack(int $id)

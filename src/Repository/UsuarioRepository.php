@@ -19,6 +19,24 @@ class UsuarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Usuario::class);
     }
 
+
+    /**
+     * @return Usuario[] Returns an array of Producto objects
+     */
+
+    public function filterByText(string $text): array
+    {
+        $qb = $this->createQueryBuilder('usu')
+            ->orWhere('usu.username LIKE :value')
+            ->orWhere('usu.role LIKE :value');
+
+        $qb->setParameter('value', "%".$text."%");
+        $qb->orderBy('usu.nombre', 'ASC');
+        $qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
     // /**
     //  * @return Usuario[] Returns an array of Usuario objects
     //  */
