@@ -6,6 +6,8 @@ namespace App\Form;
 
 use App\Entity\Servicio;
 use App\Entity\Registra;
+use App\Entity\Usuario;
+use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -13,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,13 +23,15 @@ class RegistraType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
-            ->add('usuario_id', HiddenType::class)
-            ->add('servicio_id', EntityType::class,
-                ['class' => Servicio::class,
-                    'choice_label' => 'nombre',
-                    'choice_value' => 'id',
+
+            ->add('servicio_id', ChoiceType::class,
+                [
                     'label' => 'Servicio',
+                    'choices' => ["Corte Mujer" => 1, "Corte Caballero"=>2 , "Color"=>3, "Lavar y secar"=>4, "Recogido"=>5, "Secado y peinado" =>6],
+
                 ]
             )
             ->add('fechaCita', DateType::class)
@@ -42,6 +45,7 @@ class RegistraType extends AbstractType
                     '19:00:00' => '19:00:00',
                 ],
             ])
+
             ->add('create', SubmitType::class, array('label' => 'Create'));
     }
 

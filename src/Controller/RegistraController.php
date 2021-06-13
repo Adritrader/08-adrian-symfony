@@ -25,6 +25,9 @@ class RegistraController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $user = $this->getUser();
+            $reserva->setUsuarioId($user->getId());
+            var_dump($reserva);
             $reserva = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reserva);

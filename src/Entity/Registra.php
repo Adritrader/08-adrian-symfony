@@ -21,12 +21,12 @@ class Registra
      * @ORM\Column(type="string")
      */
 
-    private $horaCita;
+    private $hora;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $fechaCita;
+    private $fecha;
 
     /**
      * @ORM\Column(type="integer")
@@ -48,24 +48,24 @@ class Registra
 
     public function getHoraCita(): ?string
     {
-        return $this->horaCita;
+        return $this->hora;
     }
 
-    public function setHoraCita(string $horaCita): self
+    public function setHoraCita(string $hora): self
     {
-        $this->horaCita = $horaCita;
+        $this->hora = $hora;
 
         return $this;
     }
 
     public function getFechaCita(): ?\DateTimeInterface
     {
-        return $this->fechaCita;
+        return $this->fecha;
     }
 
-    public function setFechaCita(\DateTimeInterface $fechaCita): self
+    public function setFechaCita(\DateTimeInterface $fecha): self
     {
-        $this->fechaCita = $fechaCita;
+        $this->fecha = $fecha;
 
         return $this;
     }
