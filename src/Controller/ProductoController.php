@@ -36,6 +36,8 @@ class ProductoController extends AbstractController
     }
 
 
+
+
     /**
      * @Route("/productos/{$id}", name="productos_show", requirements={"id"="\d+"})
      */

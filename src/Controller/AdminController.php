@@ -22,13 +22,14 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $productos = $productoRepository->findAll();
+        $productos = $productoRepository->lastProducts();
         $usuariosRepository = $this->getDoctrine()->getRepository(Usuario::class);
-        $usuarios = $usuariosRepository->findAll();
+        $usuarios = $usuariosRepository->lastUsers();
 
         if ($productos)
         {
-            return $this->render('back/index.html.twig', ["productos"=>$productos]
+            return $this->render('back/index.html.twig', ["productos"=>$productos,
+                    "usuarios" => $usuarios]
             );
         }
         else

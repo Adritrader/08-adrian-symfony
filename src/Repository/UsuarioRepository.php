@@ -37,6 +37,20 @@ class UsuarioRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
         return $query->getResult();
     }
+
+    /**
+     * @return Usuario[] Returns an array of Producto objects
+     */
+
+    public function lastUsers(): array
+    {
+        $qb = $this->createQueryBuilder('usu');
+        $qb->orderBy('usu.id', 'DESC');
+        $qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
     // /**
     //  * @return Usuario[] Returns an array of Usuario objects
     //  */

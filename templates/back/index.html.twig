@@ -60,14 +60,14 @@
                     </div>
                     <div class="list-group list-group-flush">
 
-                        {% if productos %}
-                            {% for producto in productos %}
+                        {% if usuarios %}
+                            {% for usuario in usuarios %}
 
                                 <div class="list-group-item">
-                                    <img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="50" width="50">
-                                    <span class="text-center mx-3">{{producto.nombre}}</span>
-                                    <span class="text-center mx-3">{{producto.categoria}}</span>
-                                    <span class="text-center mx-3">{{producto.precio}}</span>
+                                    <img src="{{ asset(avatar_public_directory ~  usuario.avatar)}}" height="50" width="50">
+                                    <span class="text-center mx-3">{{usuario.username}}</span>
+                                    <span class="text-center mx-3">{{usuario.email}}</span>
+                                    <span class="text-center mx-3">{{usuario.role}}</span>
                                 </div>
 
                             {% endfor %}

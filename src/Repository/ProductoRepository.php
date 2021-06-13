@@ -38,6 +38,20 @@ class ProductoRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * @return Producto[] Returns an array of Producto objects
+     */
+
+    public function lastProducts(): array
+    {
+        $qb = $this->createQueryBuilder('pro');
+        $qb->orderBy('pro.id', 'DESC');
+        $qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Producto[] Returns an array of Producto objects
     //  */
