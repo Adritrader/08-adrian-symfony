@@ -18,7 +18,7 @@ class Registra
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
 
     private $horaCita;
@@ -28,6 +28,16 @@ class Registra
      */
     private $fechaCita;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $usuario_id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $servicio_id;
+
 
 
     public function getId(): ?int
@@ -36,12 +46,12 @@ class Registra
     }
 
 
-    public function getHoraCita(): ?\DateTimeInterface
+    public function getHoraCita(): ?string
     {
         return $this->horaCita;
     }
 
-    public function setHoraCita(\DateTimeInterface $horaCita): self
+    public function setHoraCita(string $horaCita): self
     {
         $this->horaCita = $horaCita;
 
@@ -59,4 +69,38 @@ class Registra
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsuarioId()
+    {
+        return $this->usuario_id;
+    }
+
+    /**
+     * @param mixed $usuario_id
+     */
+    public function setUsuarioId($usuario_id): void
+    {
+        $this->usuario_id = $usuario_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServicioId()
+    {
+        return $this->servicio_id;
+    }
+
+    /**
+     * @param mixed $servicio_id
+     */
+    public function setServicioId($servicio_id): void
+    {
+        $this->servicio_id = $servicio_id;
+    }
+
+
 }

@@ -3,10 +3,17 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-4 card mt-5">
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
-    <h1>New Movie</h1>
+    <h1 class="mt-4 mb-4">Nueva Reserva</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
