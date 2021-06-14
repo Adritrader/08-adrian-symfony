@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Producto;
+use App\Entity\Registra;
 use App\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,26 @@ class AdminController extends AbstractController
         if ($usuarios)
         {
             return $this->render('back/back-usuarios.html.twig', ["usuarios"=>$usuarios]
+            );
+        }
+        else
+            return $this->render('back/back-usuarios.html.twig', [
+                    'usuarios' => null]
+            );
+    }
+
+    /**
+     * @Route("/reservas", name="admin_reservas")
+     */
+
+    public function backReservas(): Response
+    {
+        $reseravsRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reservas = $reseravsRepository->findAll();
+
+        if ($reservas)
+        {
+            return $this->render('back/back-usuarios.html.twig', ["reservas"=>$reservas]
             );
         }
         else

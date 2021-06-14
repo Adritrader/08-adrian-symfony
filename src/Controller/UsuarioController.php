@@ -101,8 +101,16 @@ class UsuarioController extends AbstractController
                 }
             }
 
+            //Encriptamos la contraseña
+
             $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
             $usuario->setPassword($hashedPassword);
+
+            //Asignamos el rol de usuario
+
+            $usuario->setRole("ROLE_USER");
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();

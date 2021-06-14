@@ -30,7 +30,6 @@ class UsuarioType extends AbstractType
                 "attr" =>array("class" => "form-control"),
                 "data_class" => null
                 ))
-            ->add('role', TextType::class)
             ->add('create', SubmitType::class, array('label' => 'Crear'));
     }
 
