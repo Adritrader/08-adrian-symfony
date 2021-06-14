@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 
@@ -77,7 +78,7 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function create(Request $request)
+    public function create(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $usuario = new Usuario();
 
@@ -100,6 +101,8 @@ class UsuarioController extends AbstractController
                 }
             }
 
+            $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
+            $usuario->setPassword($hashedPassword);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();
