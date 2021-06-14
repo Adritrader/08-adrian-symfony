@@ -33,8 +33,10 @@ class Registra
      */
     private $usuario_id;
 
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Servicio::class, inversedBy="registras")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $servicio_id;
 
@@ -86,20 +88,17 @@ class Registra
         $this->usuario_id = $usuario_id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getServicioId()
+
+    public function getServicioId(): ?Servicio
     {
         return $this->servicio_id;
     }
 
-    /**
-     * @param mixed $servicio_id
-     */
-    public function setServicioId($servicio_id): void
+    public function setServicioId(?Servicio $servicio_id): self
     {
         $this->servicio_id = $servicio_id;
+
+        return $this;
     }
 
 

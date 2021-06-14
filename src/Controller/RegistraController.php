@@ -32,6 +32,8 @@ class RegistraController extends AbstractController
             $user = $this->getUser();
             $reserva->setUsuarioId($user->getId());
 
+
+
             //Obtener datos del formulario
 
             $reserva = $form->getData();

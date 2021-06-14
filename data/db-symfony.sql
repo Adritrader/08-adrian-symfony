@@ -44,17 +44,6 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `movie`
---
-
-DROP TABLE IF EXISTS `movie`;
-CREATE TABLE IF NOT EXISTS `movie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `string` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 

@@ -27,13 +27,8 @@ class RegistraType extends AbstractType
 
         $builder
 
-            ->add('servicio_id', ChoiceType::class,
-                [
-                    'label' => 'Servicio',
-                    'choices' => ["Corte Mujer" => 1, "Corte Caballero"=>2 , "Color"=>3, "Lavar y secar"=>4, "Recogido"=>5, "Secado y peinado" =>6],
-
-                ]
-            )
+            ->add('servicio_id', EntityType::class, ['class' =>
+                Servicio::class, 'choice_label' => 'name'])
             ->add('fechaCita', DateType::class)
             ->add('horaCita', ChoiceType::class, [
                 'choices'  => [

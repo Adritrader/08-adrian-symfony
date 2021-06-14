@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ServicioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Servicio
      */
     private $nombre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Registra::class, mappedBy="servicio")
+     */
+    private $registras;
+
+    public function __construct()
+    {
+        $this->registras = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,4 +50,5 @@ class Servicio
 
         return $this;
     }
+
 }

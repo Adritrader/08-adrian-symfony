@@ -113,7 +113,7 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/admin/usuarios/edit/{id}", name="usuarios_edit")
      */
-    public function editProduct(int $id, Request $request)
+    public function editUsuario(int $id, Request $request)
     {
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
@@ -137,6 +137,9 @@ class UsuarioController extends AbstractController
                     return $this->redirectToRoute('admin');
                 }
             }
+
+            $updated = date("Y-m-d", time());
+            $usuarios->setUpdatedAt($updated);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuarios);
             $entityManager->flush();

@@ -58,6 +58,11 @@ class Usuario implements UserInterface, \Serializable
      */
     private $role;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -201,6 +206,18 @@ class Usuario implements UserInterface, \Serializable
     {
         list( $this->id, $this->username, $this->password) =
             unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 }
 
