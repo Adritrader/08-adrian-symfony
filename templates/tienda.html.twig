@@ -119,6 +119,7 @@
                             </div>
                         </div>
                     {% endfor %}
+
                 {% else %}
                     <h2>No hay productos disponibles</h2>
                 {% endif %}
@@ -127,6 +128,22 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-1">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% for i in 1 .. paginas %}
+                            <li class="page-item"><a style="color: black" class="page-link active p-3"
+                                                     href="/tienda?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row titulo-miniaturas-tienda">
             <div class="col-11">

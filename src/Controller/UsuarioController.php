@@ -43,6 +43,8 @@ class UsuarioController extends AbstractController
      */
     public function filter(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
         $text = $request->query->getAlnum("text");
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         if (!empty($text))
@@ -60,6 +62,9 @@ class UsuarioController extends AbstractController
      */
     public function showUserBack(int $id)
     {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuario = $usuarioRepository->find($id);
         if ($usuario)
@@ -126,6 +131,9 @@ class UsuarioController extends AbstractController
      */
     public function editUsuario(int $id, Request $request)
     {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
         $form = $this->createForm(UsuarioType::class, $usuarios);
@@ -166,6 +174,9 @@ class UsuarioController extends AbstractController
      */
     public function delete(int $id)
     {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
         $entityManager =$this->getDoctrine()->getManager();
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuario = $usuarioRepository->find($id);

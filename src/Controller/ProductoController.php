@@ -23,11 +23,21 @@ class ProductoController extends AbstractController
      */
     public function index(): Response
     {
+
+        $page = filter_input(INPUT_GET , "page");
+
+        if (empty($page)){
+            $page = 1;
+        }
+
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $productos = $productoRepository->findAll();
+        $productos = $productoRepository->findAllPaginated($page);
+
+        $paginas = ceil(count($productos)/4);
 
         if ($productos) {
-            return $this->render('tienda.html.twig', ["productos" => $productos]
+            return $this->render('tienda.html.twig', ["productos" => $productos,
+                    "paginas" => $paginas]
             );
         } else
             return $this->render('tienda.html.twig', [
