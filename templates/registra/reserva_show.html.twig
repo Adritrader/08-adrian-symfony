@@ -1,0 +1,29 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Producto Show{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1>Reserva Data</h1>
+        {% if reserva %}
+            <div class="row justify-content-center">
+                <div class="col-1" style="margin-top: -40px">
+                    <a href="../"><button class="button-four bg-danger"><i class="fas fa-chevron-circle-left mx-1"></i>Atrás</button></a></div>
+
+
+
+                <div class="card col-lg-4 col-md-4 mx-2 mt-5">
+                    <h1 class="card-title"><strong>Username:</strong> {{reserva.usuario.username}}</h1>
+                    <p class="text-muted mt-2"><strong>Servicio:</strong>{{reserva.ServicioId.nombre}}</p>
+                    <h2><em><strong>Hora:</strong>{{reserva.horaCita}}</h2>
+                    <h2><em><strong>Fecha:</strong>{{  reserva.fechaCita | date("Y-m-d") }}</h2>
+                </div>
+            </div>
+        {% else %}
+            <p>Producto not found</p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

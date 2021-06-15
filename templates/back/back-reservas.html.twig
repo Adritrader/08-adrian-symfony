@@ -42,9 +42,9 @@
 
                 <div class="col-3 col-lg-6 ml-3">
                     <div>
-                        <a style="text-decoration: none; color: white" class="btn" href="productos/create"><button class="button-four bg-dark">
+                        <a style="text-decoration: none; color: white" class="btn" href="reservas/create"><button class="button-four bg-dark">
                                 <i class="fa fa-plus-circle">
-                                </i> Añadir producto</button></a>
+                                </i> Añadir reserva</button></a>
                     </div>
                 </div>
             </div>
@@ -70,13 +70,13 @@
                                         <td class="text-center">{{reserva.horaCita}}</td>
                                         <td class="text-center">{{  reserva.fechaCita | date("Y-m-d") }}</td>
 
-                                        <td class="text-center" style="width: 140px"><a href="productos/edit/{{ reserva.id }}">
+                                        <td class="text-center" style="width: 140px"><a href="reservas/edit/{{ reserva.id }}">
                                                 <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                             </a>
-                                            <a href="productos/delete/{{ reserva.id }}">
+                                            <a href="reservas/delete/{{ reserva.id }}">
                                                 <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                             </a>
-                                            <a href="productos/show/{{ reserva.id }}">
+                                            <a href="reservas/show/{{ reserva.id }}">
                                                 <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
                                             </a>
                                         </td>

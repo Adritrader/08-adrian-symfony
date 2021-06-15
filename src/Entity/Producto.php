@@ -19,37 +19,28 @@ class Producto
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="El nombre es obligatorio")
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="La categoría es obligatoria")
      */
     private $categoria;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="La descripción es obligatoria")
      */
     private $descripcion;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotNull(message="El precio es obligatorio")
      */
     private $precio;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="La imagen es obligatoria")
      */
     private $imagen;
-
-
-
-
 
     public function getId(): ?int
     {

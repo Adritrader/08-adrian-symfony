@@ -19,14 +19,12 @@ class Registra
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotNull(message="La hora es obligatoria")
      */
 
     private $hora;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotNull(message="La fecha es obligatoria")
      */
     private $fecha;
 
