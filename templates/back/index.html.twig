@@ -78,6 +78,58 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-2 mx-4">
+
+
+                </div>
+                <div class="card col-4 mt-3 mr-3" style="width: 18rem;">
+                    <div class="card-header">
+                        Últimos reservas registradas
+                    </div>
+                    <div class="list-group list-group-flush">
+
+                        {% if reservas %}
+                            {% for reserva in reservas %}
+
+                                <div class="list-group-item">
+                                    <span class="text-center mx-3">{{reserva.usuario.username}}</span>
+                                    <span class="text-center mx-3">{{reserva.ServicioId.nombre}}</span>
+                                    <span class="text-center mx-3">{{reserva.horaCita}}</span>
+                                    <span class="text-center mx-3">{{  reserva.fechaCita | date("Y-m-d") }}</span>
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+                            <h2>No hay usuarios disponibles</h2>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card col-4 mt-3 mx-5" style="width: 18rem;">
+                    <div class="card-header">
+                        Últimos usuarios añadidos
+                    </div>
+                    <div class="list-group list-group-flush">
+
+                        {% if usuarios %}
+                            {% for usuario in usuarios %}
+
+                                <div class="list-group-item">
+                                    <img src="{{ asset(avatar_public_directory ~  usuario.avatar)}}" height="50" width="50">
+                                    <span class="text-center mx-3">{{usuario.username}}</span>
+                                    <span class="text-center mx-3">{{usuario.email}}</span>
+                                    <span class="text-center mx-3">{{usuario.role}}</span>
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+                            <h2>No hay usuarios disponibles</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

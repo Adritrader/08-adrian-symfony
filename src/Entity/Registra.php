@@ -28,10 +28,6 @@ class Registra
      */
     private $fecha;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $usuario_id;
 
 
     /**
@@ -39,6 +35,12 @@ class Registra
      * @ORM\JoinColumn(nullable=false)
      */
     private $servicio_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=usuario::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $usuario;
 
 
 
@@ -72,21 +74,7 @@ class Registra
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUsuarioId()
-    {
-        return $this->usuario_id;
-    }
 
-    /**
-     * @param mixed $usuario_id
-     */
-    public function setUsuarioId($usuario_id): void
-    {
-        $this->usuario_id = $usuario_id;
-    }
 
 
     public function getServicioId(): ?Servicio
@@ -97,6 +85,18 @@ class Registra
     public function setServicioId(?Servicio $servicio_id): self
     {
         $this->servicio_id = $servicio_id;
+
+        return $this;
+    }
+
+    public function getUsuario(): ?usuario
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario(?usuario $usuario): self
+    {
+        $this->usuario = $usuario;
 
         return $this;
     }

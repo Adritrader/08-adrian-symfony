@@ -55,6 +55,8 @@
                         <table>
                             <tr>
 
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Servicio</th>
                                 <th class="text-center">Hora</th>
                                 <th class="text-center">Fecha</th>
                                 <th class="text-center">Acciones</th>
@@ -62,8 +64,11 @@
                             {% if reservas %}
                                 {% for reserva in reservas %}
                                     <tr>
-                                        <td class="text-center">{{reserva.hora}}</td>
-                                        <td class="text-center">{{  reserva.fecha }}</td>
+
+                                        <td class="text-center">{{reserva.usuario.username}}</td>
+                                        <td class="text-center">{{reserva.ServicioId.nombre}}</td>
+                                        <td class="text-center">{{reserva.horaCita}}</td>
+                                        <td class="text-center">{{  reserva.fechaCita | date("Y-m-d") }}</td>
 
                                         <td class="text-center" style="width: 140px"><a href="productos/edit/{{ reserva.id }}">
                                                 <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>

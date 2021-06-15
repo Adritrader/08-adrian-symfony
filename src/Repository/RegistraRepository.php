@@ -19,6 +19,20 @@ class RegistraRepository extends ServiceEntityRepository
         parent::__construct($registry, Registra::class);
     }
 
+    /**
+     * @return Registra[] Returns an array of Producto objects
+     */
+
+    public function lastReserves(): array
+    {
+        $qb = $this->createQueryBuilder('res');
+        $qb->orderBy('res.id', 'DESC');
+        $qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Registra[] Returns an array of Registra objects
     //  */

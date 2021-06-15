@@ -26,16 +26,20 @@ class AdminController extends AbstractController
         $productos = $productoRepository->lastProducts();
         $usuariosRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuariosRepository->lastUsers();
+        $reseravsRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reservas = $reseravsRepository->lastReserves();
 
-        if ($productos)
+        if ($productos || $usuarios || $reservas)
         {
             return $this->render('back/index.html.twig', ["productos"=>$productos,
-                    "usuarios" => $usuarios]
+                    "usuarios" => $usuarios, "reservas" => $reservas]
             );
         }
         else
             return $this->render('back/index.html.twig', [
-                    'productos' => null]
+                    'productos' => null,
+                    'usuarios' => null,
+                    'reservas' => null]
             );
     }
 
@@ -90,14 +94,15 @@ class AdminController extends AbstractController
         $reseravsRepository = $this->getDoctrine()->getRepository(Registra::class);
         $reservas = $reseravsRepository->findAll();
 
+
         if ($reservas)
         {
-            return $this->render('back/back-usuarios.html.twig', ["reservas"=>$reservas]
+            return $this->render('back/back-reservas.html.twig', ["reservas"=>$reservas]
             );
         }
         else
-            return $this->render('back/back-usuarios.html.twig', [
-                    'usuarios' => null]
+            return $this->render('back/back-reservas.html.twig', [
+                    'reservas' => null]
             );
     }
 
