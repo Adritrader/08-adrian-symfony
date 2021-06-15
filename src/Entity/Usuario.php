@@ -20,36 +20,43 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El nombre es obligatorio")
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El apellido es obligatorio")
      */
     private $apellidos;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull(message="El teléfono es obligatorio")
      */
     private $telefono;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El email es obligatorio")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El username es obligatorio")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El password es obligatorio")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="El avatar es obligatorio")
      */
     private $avatar;
 
