@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -14,8 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 class UsuarioController extends AbstractController
@@ -119,8 +119,12 @@ class UsuarioController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();
+
+
+
             $this->addFlash('success', "Se ha registrado correctamente");
-            
+
+
             return $this->redirectToRoute('perfil', ["id" => $usuario->getId()]);
         }
         return $this->render('auth/register.html.twig', array(
@@ -174,6 +178,24 @@ class UsuarioController extends AbstractController
      * @Route("/admin/usuarios/delete/{id}", name="usuarios_delete")
      */
     public function delete(int $id)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
+
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuario = $usuarioRepository->find($id);
+
+
+        return $this->render('usuario/delete-usuario.html.twig', ["usuario" => $usuario]);
+
+
+    }
+
+    /**
+     * @Route("/admin/usuarios/delete/{id}/yes", name="usuarios_destroy")
+     */
+    public function destroy(int $id)
     {
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN',
