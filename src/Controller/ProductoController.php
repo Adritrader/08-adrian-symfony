@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\Movie;
 use App\Entity\Producto;
 use App\Form\ProductoType;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -131,7 +133,14 @@ class ProductoController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($producto);
             $entityManager->flush();
-            $this->addFlash('success', "El producto " . $producto->getProducto() . " se ha creado correctamente");
+            $this->addFlash('success', "El producto " . $producto->getNombre() . " se ha creado correctamente");
+
+            //Logger
+
+            $logger = new Logger('producto');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha creado el producto ' . $producto->getNombre());
+
             return $this->redirectToRoute('admin');
         }
         return $this->render('back/productos-create.html.twig', array(

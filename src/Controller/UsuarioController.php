@@ -120,7 +120,8 @@ class UsuarioController extends AbstractController
             $entityManager->persist($usuario);
             $entityManager->flush();
             $this->addFlash('success', "Se ha registrado correctamente");
-            return $this->redirectToRoute('login');
+            
+            return $this->redirectToRoute('perfil', ["id" => $usuario->getId()]);
         }
         return $this->render('auth/register.html.twig', array(
             'form' => $form->createView()));
