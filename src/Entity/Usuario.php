@@ -3,11 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
+use DateInterval;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
+ * @UniqueEntity("email")
  */
 class Usuario implements UserInterface, \Serializable
 {
@@ -20,31 +28,38 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "El nombre es obligatorio")
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Los apellidos es obligatorio")
      */
     private $apellidos;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank( message = "El telefono es obligatorio")
      */
     private $telefono;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email is not a valid email.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "El username es obligatorio")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "El password es obligatorio")
      */
     private $password;
 
@@ -59,7 +74,7 @@ class Usuario implements UserInterface, \Serializable
     private $role;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $updated_at;
 
@@ -208,17 +223,27 @@ class Usuario implements UserInterface, \Serializable
             unserialize($serialized, ['allowed_classes' => false]);
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    /**
+     * @param mixed $updated_at
+     */
+    public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
-
-        return $this;
     }
+
+
+
+
+
+
 }
 
 

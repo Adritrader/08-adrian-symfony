@@ -27,13 +27,24 @@ class UsuarioController extends AbstractController
     {
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuario = $usuarioRepository->find($id);
-        if ($usuario)
-        {
-            return $this->render('usuario/perfil.html.twig', ["usuario"=>$usuario]
-            );
+
+
+        if ($usuario) {
+            if ($this->getUser() === $usuario){
+
+                return $this->render('usuario/perfil.html.twig', ["usuario"=>$usuario]
+                );
+            } else {
+
+                $this->addFlash('danger', "No tienes permisos");
+
+                return $this->render('auth/index.html.twig', [
+                        'usuario' => null]
+                );
+            }
         }
         else
-            return $this->render('usuario/perfil.html.twig', [
+            return $this->render('errores/404.html.twig', [
                     'usuario' => null]
             );
     }
@@ -99,7 +110,16 @@ class UsuarioController extends AbstractController
                 try {
                     $projectDir = $this->getParameter('kernel.project_dir');
                     $posterFile->move($projectDir . '/public/img/', $filename);
-                    $usuario->setAvatar($filename);
+
+                    if(empty($filename)){
+
+                     $usuario->setAvatar("nofoto.jpg");
+
+                    } else {
+
+                        $usuario->setAvatar($filename);
+
+                    }
                 } catch (FileException $e) {
                     $this->addFlash('danger', $e->getMessage());
                     return $this->redirectToRoute('login');
@@ -185,7 +205,6 @@ class UsuarioController extends AbstractController
 
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuario = $usuarioRepository->find($id);
-
 
         return $this->render('usuario/delete-usuario.html.twig', ["usuario" => $usuario]);
 

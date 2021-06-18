@@ -65,7 +65,7 @@ class RegistraController extends AbstractController
     }
 
     /**
-     * @Route("/admin/reservas/create", name="reservas_create")
+     * @Route("/admin/reservas/create", name="reservas_createback")
      */
     public function createReserva(Request $request): Response
     {

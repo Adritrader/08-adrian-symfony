@@ -19,6 +19,7 @@ class Registra
 
     /**
      * @ORM\Column(type="string")
+     *
      */
 
     private $hora;

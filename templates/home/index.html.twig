@@ -23,7 +23,7 @@
 
 
                     {% if is_granted('ROLE_USER') %}
-                        <a href="/reservas/create" class="button-three" alt="">Reservar cita</a>
+                        <a href="{{ path('reservas_create') }}" class="button-three" alt="">Reservar cita</a>
                     {% endif %}
 
                     <img src="img/carrousel-1.jpg" style="width:100%; height: 450px">
@@ -33,7 +33,7 @@
             <div class="mySlides">
                 <div class="button-container">
                     {% if is_granted('ROLE_USER') %}
-                        <a href="/reservas/create" class="button-three" alt="">Reservar cita</a>
+                        <a href="{{ path('reservas_create') }}" class="button-three" alt="">Reservar cita</a>
                     {% endif %}
 
                     <img src="img/carrousel-2.jpg" style="width:100%; height: 450px">
@@ -43,7 +43,7 @@
             <div class="mySlides">
                 <div class="button-container">
                     {% if is_granted('ROLE_USER') %}
-                        <a href="/reservas/create" class="button-three" alt="">Reservar cita</a>
+                        <a href="{{ path('reservas_create') }}" class="button-three" alt="">Reservar cita</a>
                     {% endif %}
 
                     <img src="img/fondo-estilo.jpg" style="width:100%; height: 450px">
