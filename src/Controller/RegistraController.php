@@ -49,7 +49,7 @@ class RegistraController extends AbstractController
 
             //Logger
 
-            $logger = new Logger('channel-name');
+            $logger = new Logger('reserva');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
             $logger->info('Se ha creado una nueva reserva para el usuario ' . $user->getUsername());
 

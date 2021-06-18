@@ -38,6 +38,7 @@ security:
 
     encoders:
         App\Entity\Usuario:
+            #algorithm: auto
             plaintext
 
 

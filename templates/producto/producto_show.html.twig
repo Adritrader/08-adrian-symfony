@@ -23,7 +23,7 @@
             </div>
         </div>
     {% else %}
-        <p>Producto not found</p>
+        {{ include ('/bundles/TwigBundle/Exception/error404.html.twig') }}
     {% endif %}
 
 </div>

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,13 +40,13 @@ class UsuarioController extends AbstractController
 
                 $this->addFlash('danger', "No tienes permisos");
 
-                return $this->render('auth/index.html.twig', [
+                return $this->render('/bundles/TwigBundle/Exception/error403.html.twig', [
                         'usuario' => null]
                 );
             }
         }
         else
-            return $this->render('errores/404.html.twig', [
+            return $this->render('/bundles/TwigBundle/Exception/error403.html.twig', [
                     'usuario' => null]
             );
     }
@@ -135,12 +137,24 @@ class UsuarioController extends AbstractController
 
             $usuario->setRole("ROLE_USER");
 
+            // Asignamos la fecha de actualización, por defecto es la fecha de creación del usuario
+
+            $updated = date("Y-m-d H:i:s", time());
+            $usuario->setUpdatedAt($updated);
+
+            // Guardamos el usuario en la BD
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuario);
             $entityManager->flush();
 
+            //Logger
 
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha registrado un usuario nuevo');
+
+            // Flash message
 
             $this->addFlash('success', "Se ha registrado correctamente");
 
