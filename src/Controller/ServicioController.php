@@ -13,7 +13,7 @@ class ServicioController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('servicio/index.html.twig', [
+        return $this->render('servicio/back-index.html.twig', [
             'controller_name' => 'ServicioController',
         ]);
     }

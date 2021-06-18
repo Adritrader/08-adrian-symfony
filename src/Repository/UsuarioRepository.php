@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Usuario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -50,6 +51,31 @@ class UsuarioRepository extends ServiceEntityRepository
         //$qb->setFirstResult(4);
         $query = $qb->getQuery();
         return $query->getResult();
+    }
+
+    public function findAllPaginated($currentPage = 1):?Paginator
+    {
+        $query = $this->createQueryBuilder('usu')
+            ->orderBy('usu.id', 'ASC')
+            ->getQuery();
+
+        // No need to manually get get the result ($query->getResult())
+        $paginator = $this->paginate($query, $currentPage);
+
+        return $paginator;
+    }
+
+    // Paginate results.
+
+    public function paginate($dql, $page = 1, $limit = 4):?Paginator
+    {
+        $paginator = new Paginator($dql);
+
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1)) // Offset
+            ->setMaxResults($limit); // Limit
+
+        return $paginator;
     }
     // /**
     //  * @return Usuario[] Returns an array of Usuario objects

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Juan Bisquert | Peluqueria{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row fila-blog">
+        <div class="col-9 col-entradas-blog">
+            <h2>Entradas</h2>
+            <section class="blog-entrada">
+                <div class="row fila-entrada">
+                    <div class="col-3">
+                        <img src="img/color-blog.jpg" alt="imagen-entrada-blog">
+                    </div>
+                    <div class="col-8 cuerpo-entrada">
+                        <h1 class="titulo-entrada">Colores de temporada</h1>
+                        <p class="fecha-entrada"><i class="fas fa-calendar"></i>&nbsp;Fecha de la entrada: <span>27-12-2020</span></p>
+                        <p class="texto-entrada">Entre las tendencias de pelo más de moda del Otoño/Invierno 2020-2021 destacan los cortes de pelo de media melena, el icónico bob de los 90, el flequillo cortina, el Glossy Hair y las mechas naturales como las Teasylights o el Sun-kissed blonde.
+                            Pero si quieres optar por un cambio de look más radical y atrevido para empezar la nueva temporada con energías renovadas, no te puedes perder la selección de tintes, mechas, cortes de pelo y peinados que hemos preparado. Desde el Coral blonde, las mechas Chunky o
+                            el rojo cereza hasta cortes de pelo extremos como el Shullet. Sin olvidar los peinados al más puro estilo 90's como las dos coletas y los clips de colores. ¡No pasarás desapercibida!
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-entrada">
+                <div class="row fila-entrada">
+                    <div class="col-3">
+                        <img src="img/color-blog2.jpg" alt="imagen-entrada-blog">
+                    </div>
+                    <div class="col-8 cuerpo-entrada">
+                        <h1 class="titulo-entrada">Tonalidades del cabello</h1>
+                        <p class="fecha-entrada"><i class="fas fa-calendar"></i>&nbsp;Fecha de la entrada: <span>15-11-2020</span></p>
+                        <p class="texto-entrada">Cada vez son más las mujeres que buscan naturalidad en la tonalidad del cabello. Son muchos los colores que están de moda pero al margen de cuál pueda gustarnos más todas queremos un acabado nada artificial, sedoso y con brillo. ¿Verdad?</p>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-entrada">
+                <div class="row fila-entrada">
+                    <div class="col-3">
+                        <img src="img/desfile.jpg" alt="imagen-entrada-blog">
+                    </div>
+                    <div class="col-8 cuerpo-entrada">
+                        <h1 class="titulo-entrada">Desfile Chanel Jardines Versailles</h1>
+                        <p class="fecha-entrada"><i class="fas fa-calendar"></i>&nbsp;Fecha de la entrada: <span>07-11-2020</span></p>
+                        <p class="texto-entrada">Un jardín bucólico, fuentes, cascadas y carpas de madera pintada decoradas con cortinas en trampantojos. Las modelos más cotizadas convertidas en traviesas marquesas de pelo corto,
+                            de una corte barrock & roll, con el logo de Chanel tatuado en negro en la mejilla, cual lunar del siglo XXI, y «una precolección con más encajes y puntillas de los que María Antonieta habría guardado en su alcoba»,
+                            como apuntó en su crónica Suzy Menkes, editora de moda de International Herald Tribune. Al lado del desfile de la colección crucero 2020/2021
+                            de Chanel, en el Bosque de las Tres Fuentes del Palacio de Versalles, cualquier otra presentación de una línea resort parece un mero catálogo.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-entrada">
+                <div class="row fila-entrada">
+                    <div class="col-3">
+                        <img src="img/pasarela-blog.jpg" alt="imagen-entrada-blog">
+                    </div>
+                    <div class="col-8 cuerpo-entrada">
+                        <h1 class="titulo-entrada">Desfile Dior Paris</h1>
+                        <p class="fecha-entrada"><i class="fas fa-calendar"></i>&nbsp;Fecha de la entrada: <span>27-10-2020</span></p>
+                        <p class="texto-entrada">Desde París, la Alta Costura vuelve a seducirnos y así se ha vivido el último desfile de la maison, con la colección de Maria Grazia Chiuri para la próxima primavera-verano 2020. Una vez más la diseñadora ha ido más allá de la moda, conectándonos con las historias, con la belleza femenina,
+                            y con la creación, por eso ha vuelto a trabajar con la artista feminisa Judy Chicago, con quien ya creó la camiseta que vimos en el desfile de la colección Invierno 2020.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-3">
+            <h2>Lista de entradas</h2>
+            <div class="row">
+                <div class="col-11 col-fecha-entradas">
+                    <ul class="leyenda-blog">
+                        <li class="icono-dropdown"><i class="fas fa-caret-down"></i>2021</li>
+                        <li class="icono-dropdown"><i class="fas fa-caret-down"></i>2020</li>
+                        <ul class="leyenda-blog">
+                            <li class="meses"><a href="">Invierno</a></li>
+                            <li class="meses"><a href="">Otoño</a></li>
+                            <li class="meses"><a href="">Primavera</a></li>
+                            <li class="meses"><a href="">Verano</a></li>
+
+                        </ul>
+                        </li>
+                        <li class="icono-dropdown"><i class="fas fa-caret-down"></i>2019</li>
+                    </ul>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -8,48 +8,50 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MyController extends AbstractController
 {
+
     /**
-     * @Route("/my", name="my")
+     * @Route("/servicios", name="servicios")
      */
-    public function index(): Response
-    {
-        return $this->render('my/index.html.twig');
-
-}
-
     public function servicios(): Response
     {
-        return $this->render('servicios.html.twig');
+        return $this->render('front/servicios.html.twig');
 
     }
 
-    public function tienda(): Response
-    {
-        return $this->render('tienda.html.twig');
 
-    }
-
+    /**
+     * @Route("/quienes-somos", name="quienes_somos")
+     */
     public function quienesSomos(): Response
     {
-        return $this->render('quienes-somos.html.twig');
+        return $this->render('front/quienes-somos.html.twig');
 
     }
 
+    /**
+     * @Route("/blog", name="blog")
+     */
     public function blog(): Response
     {
-        return $this->render('blog.html.twig');
+        return $this->render('front/blog.html.twig');
 
     }
 
+    /**
+     * @Route("/galeria", name="galeria")
+     */
     public function galeria(): Response
     {
-        return $this->render('galeria.html.twig');
+        return $this->render('front/galeria.html.twig');
 
     }
 
+    /**
+     * @Route("/contacto", name="contacto")
+     */
     public function contacto(): Response
     {
-        return $this->render('contacto.html.twig');
+        return $this->render('front/contacto.html.twig');
 
     }
 

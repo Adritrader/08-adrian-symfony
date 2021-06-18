@@ -61,10 +61,7 @@
                         <table>
                             <tr>
                                 <th class="text-center">Avatar</th>
-                                <th class="text-center">Nombre <a href="/movies?order=title&&tipo=ASC"><i
-                                                class="fa fa-arrow-down"></i></a>
-                                    <a href="/movies?order=title&&tipo=DESC"><i
-                                                class="fa fa-arrow-up"></i></a></th>
+                                <th class="text-center">Nombre</th>
                                 <th class="text-center">Username</th>
                                 <th class="text-center">Rol</th>
                                 <th class="text-center">Email</th>
@@ -102,6 +99,22 @@
                                 <h2>No hay usuarios disponibles</h2>
                             {% endif %}
                         </table>
+
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-1">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            {% for i in 1 .. paginas %}
+                                                <li class="page-item" style="padding: 0px !important;"><a style="color: black" class="page-link active"
+                                                                         href="/admin/usuarios?page={{i}}">{{i}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </nav>
+
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>

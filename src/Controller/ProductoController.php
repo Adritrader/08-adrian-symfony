@@ -38,11 +38,11 @@ class ProductoController extends AbstractController
         $paginas = ceil(count($productos)/4);
 
         if ($productos) {
-            return $this->render('tienda.html.twig', ["productos" => $productos,
+            return $this->render('front/tienda.html.twig', ["productos" => $productos,
                     "paginas" => $paginas]
             );
         } else
-            return $this->render('tienda.html.twig', [
+            return $this->render('front/tienda.html.twig', [
                     'productos' => null]
             );
     }
@@ -51,33 +51,34 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("/productos/{$id}", name="productos_show", requirements={"id"="\d+"})
+     *@Route("/tienda/show/{id}", name="productos_show", requirements={"id"="\d+"})
      */
     public function show(int $id)
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
+
         if ($producto) {
-            return $this->render('producto/producto_show.html.twig', ["producto" => $producto]
+            return $this->render('producto/productoFront.html.twig', ["producto" => $producto]
             );
         } else
-            return $this->render('producto/producto_show.html.twig', [
+            return $this->render('producto/productoFront.html.twig', [
                     'producto' => null]
             );
     }
 
     /**
-     * @Route("admin/productos/show/{id}", name="productos_showBack", requirements={"id"="\d+"})
+     *@Route("admin/productos/show/{id}", name="productos_showBack", requirements={"id"="\d+"})
      */
     public function showProBack(int $id)
     {
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
         if ($producto) {
-            return $this->render('producto/producto_show.html.twig', ["producto" => $producto]
+            return $this->render('producto/productoBack.html.twig', ["producto" => $producto]
             );
         } else
-            return $this->render('producto/producto_show.html.twig', [
+            return $this->render('producto/productoBack.html.twig', [
                     'producto' => null]
             );
     }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Productos{% endblock %}
+
+{% block body %}
+
+    {% if producto %}
+        {{ include ('producto/producto_show.html.twig', {'producto': producto }) }}
+        {{ include ('producto/producto-botones.html.twig') }}
+    {% else %}
+        {{ include ('/bundles/TwigBundle/Exception/error404.html.twig') }}
+    {% endif %}
+{% endblock %}

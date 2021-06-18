@@ -13,7 +13,7 @@ class AuthController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('auth/index.html.twig', [
+        return $this->render('auth/back-index.html.twig', [
             'controller_name' => 'AuthController',
         ]);
     }

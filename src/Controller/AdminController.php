@@ -31,12 +31,12 @@ class AdminController extends AbstractController
 
         if ($productos || $usuarios || $reservas)
         {
-            return $this->render('back/index.html.twig', ["productos"=>$productos,
+            return $this->render('back/back-index.html.twig', ["productos"=>$productos,
                     "usuarios" => $usuarios, "reservas" => $reservas]
             );
         }
         else
-            return $this->render('back/index.html.twig', [
+            return $this->render('back/back-index.html.twig', [
                     'productos' => null,
                     'usuarios' => null,
                     'reservas' => null]
@@ -51,12 +51,21 @@ class AdminController extends AbstractController
 
     public function backProductos(): Response
     {
+
+        $page = filter_input(INPUT_GET , "page");
+
+        if (empty($page)){
+            $page = 1;
+        }
+
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $productos = $productoRepository->findAll();
+        $productos = $productoRepository->findAllPaginated($page);
+
+        $paginas = ceil(count($productos)/4);
 
         if ($productos)
         {
-            return $this->render('back/back-productos.html.twig', ["productos"=>$productos]
+            return $this->render('back/back-productos.html.twig', ["productos"=>$productos, "paginas"=> $paginas]
             );
         }
         else
@@ -71,12 +80,21 @@ class AdminController extends AbstractController
 
     public function backUsuarios(): Response
     {
+
+        $page = filter_input(INPUT_GET , "page");
+
+        if (empty($page)){
+            $page = 1;
+        }
+
         $usuariosRepository = $this->getDoctrine()->getRepository(Usuario::class);
-        $usuarios = $usuariosRepository->findAll();
+        $usuarios = $usuariosRepository->findAllPaginated($page);
+
+        $paginas = ceil(count($usuarios)/4);
 
         if ($usuarios)
         {
-            return $this->render('back/back-usuarios.html.twig', ["usuarios"=>$usuarios]
+            return $this->render('back/back-usuarios.html.twig', ["usuarios"=>$usuarios, "paginas" => $paginas]
             );
         }
         else
