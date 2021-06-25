@@ -17,37 +17,37 @@ class Producto implements \Serializable
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "El nombre es obligatorio")
      */
-    private $nombre;
+    public $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "La categoria es obligatoria")
      */
-    private $categoria;
+    public $categoria;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "La descripción es obligatorio")
      */
-    private $descripcion;
+    public $descripcion;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank( message = "El precio es obligatorio")
      */
-    private $precio;
+    public $precio;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "La imagen es obligatoria")
      */
-    private $imagen;
+    public $imagen;
 
     public function getId(): ?int
     {
@@ -140,8 +140,7 @@ class Producto implements \Serializable
      */
     public function unserialize($serialized)
     {
-        list( $this->id, $this->nombre, $this->categoria) =
-            unserialize($serialized, ['allowed_classes' => false]);
+        list( $this->id, $this->nombre, $this->categoria) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
 

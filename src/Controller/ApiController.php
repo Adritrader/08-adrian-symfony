@@ -33,7 +33,6 @@ class ApiController extends AbstractController
     {
         $producto = $productoRepository->findAll();
 
-
         return new JsonResponse($producto, Response::HTTP_OK);
     }
 
