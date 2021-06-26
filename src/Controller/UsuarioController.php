@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Registra;
 use App\Entity\Usuario;
+use App\Form\EditUsuarioType;
+use App\Form\EditPassUsuarioType;
 use App\Form\UsuarioType;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -175,7 +177,7 @@ class UsuarioController extends AbstractController
             null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
-        $form = $this->createForm(UsuarioType::class, $usuarios);
+        $form = $this->createForm(EditUsuarioType::class, $usuarios);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -196,6 +198,7 @@ class UsuarioController extends AbstractController
                 }
             }
 
+
             $updated = date("Y-m-d", time());
             $usuarios->setUpdatedAt($updated);
             $entityManager = $this->getDoctrine()->getManager();
@@ -211,7 +214,7 @@ class UsuarioController extends AbstractController
 
             return $this->redirectToRoute('admin');
         }
-        return $this->render('usuario/usuario-edit.html.twig', array(
+        return $this->render('usuario/usuario_edit.html.twig', array(
             'form' => $form->createView()));
     }
 
@@ -275,5 +278,95 @@ class UsuarioController extends AbstractController
             return $this->render('usuario/reservas_usuario.html.twig', [
                     'reservas' => null]
             );
+    }
+
+    /**
+     * @Route("/perfil/{id}/edit", name="myuser_edit")
+     */
+    public function editMyUser(int $id, Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuarios = $usuarioRepository->find($id);
+        $form = $this->createForm(EditUsuarioType::class, $usuarios);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $usuarios = $form->getData();
+            if ($posterFile = $form['avatar']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+
+                try {
+                    $projectDir = $this->getParameter('kernel.project_dir');
+                    $posterFile->move($projectDir . '/public/img/', $filename);
+                    $usuarios->setAvatar($filename);
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'danger',
+                        $e->getMessage()
+                    );
+                    return $this->redirectToRoute('admin');
+                }
+            }
+
+            $updated = date("Y-m-d", time());
+            $usuarios->setUpdatedAt($updated);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($usuarios);
+            $entityManager->flush();
+            $this->addFlash('success', "El usuario " . $usuarios->getNombre() . " ha sido editado correctamente!");
+
+            //LOGGER
+
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha editado el usuario' . $usuarios->getNombre() . 'correctamente');
+
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('usuario/usuario_editFront.html.twig', array(
+            'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/perfil/{id}/editPass", name="myuser_editpass")
+     */
+    public function editPassUser(int $id, Request $request, UserPasswordEncoderInterface $encoder)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_USER',
+            null, 'Acceso restringido a usuarios');
+        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
+        $usuarios = $usuarioRepository->find($id);
+        $form = $this->createForm(EditPassUsuarioType::class, $usuarios);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //Encriptamos la contraseña
+
+            $hashedPassword = $encoder->encodePassword($usuarios, $usuarios->getPassword());
+            $usuarios->setPassword($hashedPassword);
+
+            $usuarios = $form->getData();
+            $updated = date("Y-m-d", time());
+            $usuarios->setUpdatedAt($updated);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($usuarios);
+            $entityManager->flush();
+            $this->addFlash('success', "El usuario " . $usuarios->getNombre() . " ha sido editado correctamente!");
+
+            //LOGGER
+
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha editado el usuario' . $usuarios->getNombre() . 'correctamente');
+
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('usuario/usuario_editPass.html.twig', array(
+            'form' => $form->createView()));
     }
 }
