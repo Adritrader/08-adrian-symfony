@@ -20,14 +20,13 @@
 
             <div class="card col-lg-4 col-md-6 py-5">
                 <div class="card col-lg-3 col-md-6 py-2">
-                    <img class="rounded w-100" src="{{asset(avatar_public_directory ~ usuario.avatar)}}" alt="poster">
+                    <img class="rounded w-100" src="{{asset(pictures_public_directory ~ producto.imagen)}}" alt="poster">
                 </div>
-                <input type="hidden" name="id" value="{{  usuario.id }}">
-                <h2><strong>Nombre:</strong>{{  usuario.nombre }}</h2>
-                <h2><strong>Apellidos:</strong>{{  usuario.apellidos }}</h2>
-                <h2 class="card-title"><strong>Username:</strong>{{  usuario.username }}</h2>
-                <h2 class="text-muted mt-2"><strong>Email:</strong>{{  usuario.email }}</h2>
-                <h2><strong>Teléfono:</strong>{{  usuario.telefono }}</h2>
+                <input type="hidden" name="id" value="{{  producto.id }}">
+                <h2><strong>Nombre:</strong>{{  producto.nombre }}</h2>
+                <h2><strong>Categorioa:</strong>{{  producto.categoria }}</h2>
+                <h2 class="card-title"><strong>Precio:</strong>{{  producto.precio }}</h2>
+                <h2 class="text-muted mt-2"><strong>Descripcion:</strong>{{  producto.descripcion }}</h2>
 
             </div>
 
@@ -36,8 +35,8 @@
 
                     <h2>¿Quieres borrar este usuario?</h2>
 
-                    <a href="{{usuario.id}}/yes"><button class="btn btn-danger">Si</button></a>
-                    <a href="index.html.twig"><button class="btn btn-primary">No</button></a>
+                    <a href="delete/yes"><button class="btn btn-danger">Si</button></a>
+                    <a href="{{ path('admin') }}"><button class="btn btn-primary">No</button></a>
 
 
                 </div>

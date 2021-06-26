@@ -69,13 +69,13 @@
                                     <td class="text-center">{{  producto.categoria }}</td>
                                     <td class="text-center">{{ producto.descripcion }}</td>
                                     <td class="text-center">{{ producto.precio}}</td>
-                                    <td class="text-center" style="width: 140px"><a href="productos/edit/{{ producto.id }}">
+                                    <td class="text-center" style="width: 140px"><a href="productos/{{ producto.id }}/edit">
                                             <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
-                                        <a href="productos/delete/{{ producto.id }}">
+                                        <a href="productos/{{ producto.id }}/delete">
                                             <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                         </a>
-                                        <a href="productos/show/{{ producto.id }}">
+                                        <a href="productos/{{ producto.id }}/show">
                                             <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
                                         </a>
                                     </td>

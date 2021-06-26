@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Pedidos;
 use App\Entity\Producto;
 use App\Entity\Registra;
 use App\Entity\Usuario;
+use App\Repository\PedidosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,7 +108,6 @@ class AdminController extends AbstractController
     /**
      * @Route("/reservas", name="admin_reservas")
      */
-
     public function backReservas(): Response
     {
         $reseravsRepository = $this->getDoctrine()->getRepository(Registra::class);
@@ -123,5 +124,26 @@ class AdminController extends AbstractController
                     'reservas' => null]
             );
     }
+
+    /**
+     * @Route("/pedidos", name="admin_pedidos")
+     */
+    public function backPedidos(): Response
+    {
+        $pedidosRepository = $this->getDoctrine()->getRepository(Pedidos::class);
+        $pedidos = $pedidosRepository->findAll();
+
+
+        if ($pedidos)
+        {
+            return $this->render('back/back-pedidos.html.twig', ["pedidos"=>$pedidos]
+            );
+        }
+        else
+            return $this->render('back/back-pedidos.html.twig', [
+                    'pedidos' => null]
+            );
+    }
+
 
 }

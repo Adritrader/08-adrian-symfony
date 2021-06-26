@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,6 +50,16 @@ class Producto implements \Serializable
      * @Assert\NotBlank( message = "La imagen es obligatoria")
      */
     public $imagen;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LineaPedido::class, mappedBy="producto", orphanRemoval=true)
+     */
+    private $linePedidos;
+
+    public function __construct()
+    {
+        $this->linePedidos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,6 +153,36 @@ class Producto implements \Serializable
     public function unserialize($serialized)
     {
         list( $this->id, $this->nombre, $this->categoria) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|LineaPedido[]
+     */
+    public function getLinePedidos(): Collection
+    {
+        return $this->linePedidos;
+    }
+
+    public function addLinePedido(LineaPedido $linePedido): self
+    {
+        if (!$this->linePedidos->contains($linePedido)) {
+            $this->linePedidos[] = $linePedido;
+            $linePedido->setProducto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLinePedido(LineaPedido $linePedido): self
+    {
+        if ($this->linePedidos->removeElement($linePedido)) {
+            // set the owning side to null (unless already changed)
+            if ($linePedido->getProducto() === $this) {
+                $linePedido->setProducto(null);
+            }
+        }
+
+        return $this;
     }
 
 

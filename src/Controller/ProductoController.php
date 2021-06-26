@@ -68,7 +68,7 @@ class ProductoController extends AbstractController
     }
 
     /**
-     *@Route("admin/productos/show/{id}", name="productos_showBack", requirements={"id"="\d+"})
+     *@Route("admin/productos/{id}/show/", name="productos_showBack", requirements={"id"="\d+"})
      */
     public function showProBack(int $id)
     {
@@ -149,7 +149,7 @@ class ProductoController extends AbstractController
     }
 
     /**
-     * @Route("/admin/productos/edit/{id}", name="productos_edit")
+     * @Route("/admin/productos/{id}/edit", name="productos_edit", requirements={"id"="\d+"})
      */
     public function editProduct(int $id, Request $request)
     {
@@ -179,17 +179,42 @@ class ProductoController extends AbstractController
             $entityManager->persist($productos);
             $entityManager->flush();
             $this->addFlash('success', "El producto " . $productos->getNombre() . "ha sido editado correctamente!");
+
+            //Logger
+
+            $logger = new Logger('producto');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha editado el producto ' . $productos->getNombre());
+
             return $this->redirectToRoute('admin');
         }
-        return $this->render('back/productos-edit.html.twig', array(
+        return $this->render('producto/productos-edit.html.twig', array(
             'form' => $form->createView()));
     }
 
     /**
-     * @Route("/admin/productos/delete/{id}", name="productos_delete")
+     *@Route("/admin/productos/{id}/delete", name="productos_delete", requirements={"id"="\d+"})
      */
     public function delete(int $id)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
+
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $producto = $productoRepository->find($id);
+
+        return $this->render('producto/delete-producto.html.twig', ["producto" => $producto]);
+    }
+
+    /**
+     *@Route("/admin/productos/{id}/delete/yes", name="productos_destroy", requirements={"id"="\d+"})
+     */
+    public function destroy(int $id)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
+
         $entityManager =$this->getDoctrine()->getManager();
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         $producto = $productoRepository->find($id);
@@ -198,6 +223,13 @@ class ProductoController extends AbstractController
             $entityManager->remove($producto);
             $entityManager->flush();
             $this->addFlash('success', "El producto " . $producto->getNombre() . " ha sido eliminado correctamente!");
+
+            //Logger
+
+            $logger = new Logger('producto');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha borrado el producto ' . $producto->getNombre());
+
             return $this->redirectToRoute('admin');
         }
         return $this->render('back/back-productos.html.twig');

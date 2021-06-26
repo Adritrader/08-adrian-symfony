@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tienda | Juan Bisquert{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="col-3"></div>
+            <div class="col-lg-8 col-8">
+                <table>
+                    <tr>
+
+                        <th class="text-center">Username</th>
+                        <th class="text-center">Servicio</th>
+                        <th class="text-center">Hora</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    {% if reservas %}
+                        {% for reserva in reservas %}
+                            <tr class="table">
+
+                                <td class="text-center">{{reserva.usuario.username}}</td>
+                                <td class="text-center">{{reserva.ServicioId.nombre}}</td>
+                                <td class="text-center">{{reserva.horaCita}}</td>
+                                <td class="text-center">{{  reserva.fechaCita | date("Y-m-d") }}</td>
+
+                                <td class="text-center" style="width: 140px"><a href="reservas/edit/{{ reserva.id }}">
+                                        <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
+                                    </a>
+                                    <a href="reservas/delete/{{ reserva.id }}">
+                                        <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
+                                    </a>
+                                    <a href="reservas/show/{{ reserva.id }}">
+                                        <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <h2>No hay reservas disponibles</h2>
+                    {% endif %}
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

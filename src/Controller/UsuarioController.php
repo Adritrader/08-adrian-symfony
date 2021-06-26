@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Registra;
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
 use Monolog\Handler\StreamHandler;
@@ -70,7 +71,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("admin/usuarios/perfil/{id}", name="perfil_back", requirements={"id"="\d+"})
+     * @Route("admin/usuarios/{id}/perfil", name="perfil_back", requirements={"id"="\d+"})
      */
     public function showUserBack(int $id)
     {
@@ -81,11 +82,11 @@ class UsuarioController extends AbstractController
         $usuario = $usuarioRepository->find($id);
         if ($usuario)
         {
-            return $this->render('back/perfil-back.html.twig', ["usuario"=>$usuario]
+            return $this->render('usuario/perfil-back.html.twig', ["usuario"=>$usuario]
             );
         }
         else
-            return $this->render('back/perfil-back.html.twig', [
+            return $this->render('usuario/perfil-back.html.twig', [
                     'usuario' => null]
             );
     }
@@ -165,7 +166,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/admin/usuarios/edit/{id}", name="usuarios_edit")
+     * @Route("/admin/usuarios/{id}/edit", name="usuarios_edit")
      */
     public function editUsuario(int $id, Request $request)
     {
@@ -201,6 +202,13 @@ class UsuarioController extends AbstractController
             $entityManager->persist($usuarios);
             $entityManager->flush();
             $this->addFlash('success', "El usuario " . $usuarios->getNombre() . " ha sido editado correctamente!");
+
+            //LOGGER
+
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha editado el usuario' . $usuarios->getNombre() . 'correctamente');
+
             return $this->redirectToRoute('admin');
         }
         return $this->render('usuario/usuario-edit.html.twig', array(
@@ -208,7 +216,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/admin/usuarios/delete/{id}", name="usuarios_delete")
+     *@Route("/admin/usuarios/{id}/delete", name="usuarios_delete", requirements={"id"="\d+"})
      */
     public function delete(int $id)
     {
@@ -225,7 +233,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/admin/usuarios/delete/{id}/yes", name="usuarios_destroy")
+     *@Route("/admin/usuarios/{id}/delete/yes", name="usuarios_destroy", requirements={"id"="\d+"})
      */
     public function destroy(int $id)
     {
@@ -240,8 +248,32 @@ class UsuarioController extends AbstractController
             $entityManager->remove($usuario);
             $entityManager->flush();
             $this->addFlash('success', "El usuario " . $usuario->getNombre() . " ha sido eliminado correctamente!");
+
+            //LOGGER
+
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info("El usuario " . $usuario->getNombre() . " ha sido eliminado");
+
             return $this->redirectToRoute('admin');
         }
         return $this->render('back/back-usuarios.html.twig');
+    }
+
+    /**
+     * @Route("/perfil/{id}/verReservas", name="reservas_show", requirements={"id"="\d+"})
+     */
+    public function showReservasUser(int $id)
+    {
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reservas = $registraRepository->findBy(["usuario" => $id]);
+
+        if ($reservas) {
+            return $this->render('usuario/reservas_usuario.html.twig', ["reservas" => $reservas]
+            );
+        } else
+            return $this->render('usuario/reservas_usuario.html.twig', [
+                    'reservas' => null]
+            );
     }
 }

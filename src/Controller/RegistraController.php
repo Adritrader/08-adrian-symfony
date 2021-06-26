@@ -125,7 +125,7 @@ class RegistraController extends AbstractController
             );
         } else
             return $this->render('registra/reserva_show.html.twig', [
-                    'registra' => null]
+                    'reserva' => null]
             );
     }
 
@@ -172,7 +172,7 @@ class RegistraController extends AbstractController
     }
 
     /**
-     * @Route("/admin/productos/delete/{id}", name="productos_delete")
+     * @Route("/admin/pedidos/delete/{id}", name="")
      */
     public function delete(int $id)
     {

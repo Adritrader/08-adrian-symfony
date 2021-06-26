@@ -6,6 +6,8 @@ use App\Repository\UsuarioRepository;
 use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -77,6 +79,16 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\Column(type="string", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Pedidos::class, mappedBy="usuario", orphanRemoval=true)
+     */
+    private $pedidos;
+
+    public function __construct()
+    {
+        $this->pedidos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -237,6 +249,36 @@ class Usuario implements UserInterface, \Serializable
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return Collection|Pedidos[]
+     */
+    public function getPedidos(): Collection
+    {
+        return $this->pedidos;
+    }
+
+    public function addPedido(Pedidos $pedido): self
+    {
+        if (!$this->pedidos->contains($pedido)) {
+            $this->pedidos[] = $pedido;
+            $pedido->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removePedido(Pedidos $pedido): self
+    {
+        if ($this->pedidos->removeElement($pedido)) {
+            // set the owning side to null (unless already changed)
+            if ($pedido->getUsuario() === $this) {
+                $pedido->setUsuario(null);
+            }
+        }
+
+        return $this;
     }
 
 

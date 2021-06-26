@@ -78,17 +78,17 @@
                                         <td class="text-center">{{ usuario.role }}</td>
                                         <td class="text-center">{{ usuario.email }}</td>
                                         <td class="text-center" style="width: 140px"><a
-                                                    href="usuarios/edit/{{ usuario.id }}">
+                                                    href="usuarios/{{ usuario.id }}/edit">
                                                 <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit mx-1"></i>
                                                     Editar
                                                 </button>
                                             </a>
-                                            <a href="usuarios/delete/{{ usuario.id }}">
+                                            <a href="usuarios/{{ usuario.id }}/delete">
                                                 <button type="button" class="btn btn-danger my-1"><i
                                                             class="fa fa-trash mx-1"></i> Borrar
                                                 </button>
                                             </a>
-                                            <a href="usuarios/perfil/{{ usuario.id }}">
+                                            <a href="usuarios/{{ usuario.id }}/perfil">
                                                 <button type="button" class="btn btn-info my-1 px-3"><i class="fa fa-eye mx-2"></i>Ver
                                                 </button>
                                             </a>
