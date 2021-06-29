@@ -56,6 +56,11 @@ class Producto implements \Serializable
      */
     private $linePedidos;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $added_on;
+
     public function __construct()
     {
         $this->linePedidos = new ArrayCollection();
@@ -181,6 +186,18 @@ class Producto implements \Serializable
                 $linePedido->setProducto(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddedOn(): ?\DateTimeInterface
+    {
+        return $this->added_on;
+    }
+
+    public function setAddedOn(\DateTimeInterface $added_on): self
+    {
+        $this->added_on = $added_on;
 
         return $this;
     }

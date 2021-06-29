@@ -4,7 +4,7 @@
 {% block body %}
 
     {% if producto %}
-        {{ include ('producto/producto_show.html.twig', {'producto': producto }) }}
+        {{ include ('producto/producto_showBack.html.twig', {'producto': producto }) }}
     {% else %}
         {{ include ('/bundles/TwigBundle/Exception/error404.html.twig') }}
     {% endif %}

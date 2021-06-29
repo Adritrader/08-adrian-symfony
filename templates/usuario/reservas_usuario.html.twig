@@ -32,13 +32,13 @@
                                 <td class="text-center">{{reserva.horaCita}}</td>
                                 <td class="text-center">{{  reserva.fechaCita | date("Y-m-d") }}</td>
 
-                                <td class="text-center" style="width: 140px"><a href="reservas/edit/{{ reserva.id }}">
+                                <td class="text-center" style="width: 140px"><a href="{{ path('reservas_editUser', {id: reserva.id}) }}">
                                         <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                     </a>
                                     <a href="reservas/delete/{{ reserva.id }}">
                                         <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                     </a>
-                                    <a href="reservas/show/{{ reserva.id }}">
+                                    <a href="{{ path('reserva_showUser', {id: reserva.id}) }}">
                                         <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
                                     </a>
                                 </td>

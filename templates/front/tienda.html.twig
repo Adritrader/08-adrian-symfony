@@ -12,9 +12,9 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-container">
-                    <a href="categorias-champu.html">Champús</a>
-                    <a href="categorias-tratamientos.html">Tratamientos</a>
-                    <a href="categorias-accesorios.html">Accesorios</a>
+                    <a href="{{ path('categoria_champu') }}">Champús</a>
+                    <a href={{ path('categoria_tratamiento') }}>Tratamientos</a>
+                    <a href={{ path('categoria_accesorio') }}>Accesorios</a>
                 </div>
 
             </div>
@@ -102,9 +102,54 @@
         <div class="col-11">
             <h2>Destacados</h2>
             <hr>
+            <div class="row justify-content-center">
+                <div class="col-7 col-lg-7 col-sm-10 mr-4 bg-light" style="border: 2px solid black">
+                    <form method="get" action="tienda/filter"
+                          class="form-inline">
+                        <div class="form-group">
+                            <input name="text"
+                                   value=""
+                                   type="text" placeholder="Buscar" aria-label="Search">
+                        </div>
+                        <div class="form-check-inline ml-3">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="optradio" id="categoria" value="categoria">&nbsp;Categoria
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre
+                                &nbsp;
+                            </label></div>
+                        <div class="col-3 col-lg-3 col-sm-3 ml-5 bg-light">
+                            <div class="form-group mt-2">
+                                <label for="min" class="mr-1">Min</label>
+                                <input name="text"
+                                       value=""
+                                       type="date" placeholder="Buscar" id="min" aria-label="Search">
+                            </div>
+                            <div class="form-group mt-2 mb-2">
+                                <label for="max" class="mr-1">Max</label>
+                                <input name="text"
+                                       value=""
+                                       type="date" placeholder="Buscar" id="max" aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="col-1 col-lg-1 col-sm-3 bg-light">
+                            <h5>Busca entre 2 fechas</h5>
+                        </div>
+                        <div class="form-group mr-2">
+                            <button style="margin-top: 15px; margin-left: 40px" class="button-four" type="submit"
+                                    name="botonFiltrar">Buscar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
             <div class="row productos-miniaturas">
-                {% if productos %}
-                    {% for producto in productos %}
+                {% if pagination %}
+                    {% for producto in pagination %}
                         <div class="col-2 miniatura">
                             <img class="mt-3" src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="200">
                             <span>{{producto.precio}}</span>
@@ -112,7 +157,7 @@
                             <p class="producto-card-text">{{producto.descripcion}}</p>
 
                             <div class="row justify-content-center">
-                                <a href="tienda/show/{{producto.id}}"><button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button></a>
+                                <a href="tienda/{{producto.id}}/show"><button class="button-three"><i class="fas fa-info-circle"></i>Ver detalles</button></a>
                             </div>
                             <div class="row justify-content-center">
                                 <button class="button-three"><i class="fas fa-shopping-cart"></i>Añadir compra</button>
@@ -126,18 +171,18 @@
 
 
             </div>
+
+
+
         </div>
     </div>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-1">
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% for i in 1 .. paginas %}
-                            <li class="page-item"><a style="color: black" class="page-link active p-3"
-                                                     href="/tienda?page={{i}}">{{i}}</a></li>
-                        {% endfor %}
-                    </ul>
+                    <div>
+                        {{knp_pagination_render(pagination)}}
+                    </div>
                 </nav>
 
             </div>

@@ -150,7 +150,7 @@ class RegistraController extends AbstractController
     /**
      * @Route("/admin/reservas/edit/{id}", name="reservas_edit")
      */
-    public function editProduct(int $id, Request $request)
+    public function editReserva(int $id, Request $request)
     {
         $reservasRepository = $this->getDoctrine()->getRepository(Registra::class);
         $reservas = $reservasRepository->find($id);

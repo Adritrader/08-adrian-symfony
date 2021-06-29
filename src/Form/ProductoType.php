@@ -4,6 +4,7 @@
 namespace App\Form;
 
 use App\Entity\Producto;
+use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,6 +25,7 @@ class ProductoType extends AbstractType
             ->add('categoria', TextType::class)
             ->add('descripcion', TextareaType::class)
             ->add('precio', TextType::class)
+            ->add('added_on', DateType::class)
             ->add('imagen', FileType::class,array(
                 "attr" =>array("class" => "form-control"),
                 "data_class" => null

@@ -83,7 +83,7 @@
                                 Log out
                             </a>
 
-                            <a style="color: #00e069" href="/perfil/{{ app.user.id }}"><i class="fa fa-user" style="color: #00e069 !important; margin-right: 5px;"></i>{{ app.user.username }}</a>
+                            <a style="color: #00e069" href="/perfil"><i class="fa fa-user" style="color: #00e069 !important; margin-right: 5px;"></i>{{ app.user.username }}</a>
 
                     {% else %}
 
@@ -132,7 +132,7 @@
                             <a class="nav-link enlaces" href="/contacto">Contacto</a>
                         </li>
                         <li class="nav-item enlaces">
-                            <a class="nav-link" href="/tienda">Tienda</a>
+                            <a class="nav-link" href="{{ path('tienda') }}">Tienda</a>
                         </li>
 
                         {% if is_granted('ROLE_ADMIN') %}
@@ -148,7 +148,7 @@
                             <a href="/galeria">Galería</a>
                             <a href="/blog">Blog</a>
                             <a href="/contacto">Contacto</a>
-                            <a href="/tienda">Tienda</a>
+                            <a href="{{ path('tienda') }}">Tienda</a>
                         </div>
                     </ul>
 
@@ -180,7 +180,7 @@
                     <a href="/registra-create">Reservar Cita</a>
                     <a href="blog.html">Blog</a>
                     <a href="contacto.html">Contacto</a>
-                    <a href="tienda.html">Tienda</a>
+                    <a href="{{ path('tienda') }}">Tienda</a>
 
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2 mapa">
@@ -209,7 +209,7 @@
                     <a href="#">Política</a>
                     <a href="#">Cookies</a>
                     <a href="#">Aviso Legal</a>
-                    <a href="tienda.html">Tienda</a>
+                    <a href="{{ path('tienda') }}">Tienda</a>
                 </div>
             </div>
         </div>

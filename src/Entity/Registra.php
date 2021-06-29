@@ -29,8 +29,6 @@ class Registra
      */
     private $fecha;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=Servicio::class, inversedBy="registras")
      * @ORM\JoinColumn(nullable=false)
@@ -42,6 +40,11 @@ class Registra
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
 
 
 
@@ -98,6 +101,18 @@ class Registra
     public function setUsuario(?usuario $usuario): self
     {
         $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace App\Controller;
 
-
 use App\Entity\Movie;
 use App\Entity\Producto;
 use App\Form\ProductoType;
@@ -11,6 +10,7 @@ use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,35 +23,85 @@ class ProductoController extends AbstractController
     /**
      * @Route("/tienda", name="tienda")
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $page = filter_input(INPUT_GET , "page");
+        $pagination = $this->getDoctrine()
+            ->getRepository(Producto::class)
+            ->getAllProductsPaginated($request, $paginator);
 
-        if (empty($page)){
-            $page = 1;
-        }
+        return $this->render('front/tienda.html.twig', [
+            'controller_name' => 'ProductoController',
+            'pagination' => $pagination
+        ]);
+    }
+
+
+    /**
+     * @Route("/tienda/categoria-champu", name="categoria_champu")
+     */
+    public function categoriaChampu(): Response
+    {
 
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $productos = $productoRepository->findAllPaginated($page);
+        $productos = $productoRepository->findAllPaginatedChampus();
 
         $paginas = ceil(count($productos)/4);
 
         if ($productos) {
-            return $this->render('front/tienda.html.twig', ["productos" => $productos,
+            return $this->render('front/categoria_champu.html.twig', ["productos" => $productos,
                     "paginas" => $paginas]
             );
         } else
-            return $this->render('front/tienda.html.twig', [
+            return $this->render('front/categoria_champu.html.twig', [
+                    'productos' => null]
+            );
+    }
+    /**
+     * @Route("/tienda/categoria-tratamiento", name="categoria_tratamiento")
+     */
+    public function categoriaTratamientos(): Response
+    {
+
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $productos = $productoRepository->findAllPaginatedTratamientos();
+
+        $paginas = ceil(count($productos)/4);
+
+        if ($productos) {
+            return $this->render('front/categoria_tratamientos.html.twig', ["productos" => $productos,
+                    "paginas" => $paginas]
+            );
+        } else
+            return $this->render('front/categoria_tratamientos.html.twig', [
+                    'productos' => null]
+            );
+    }
+    /**
+     * @Route("/tienda/categoria-accesorio", name="categoria_accesorio")
+     */
+    public function categoriaAccesorio(): Response
+    {
+
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        $productos = $productoRepository->findAllPaginatedAccesorios();
+
+        $paginas = ceil(count($productos)/4);
+
+        if ($productos) {
+            return $this->render('front/categoria_accesorios.html.twig', ["productos" => $productos,
+                    "paginas" => $paginas]
+            );
+        } else
+            return $this->render('front/categoria_accesorios.html.twig', [
                     'productos' => null]
             );
     }
 
 
 
-
     /**
-     *@Route("/tienda/show/{id}", name="productos_show", requirements={"id"="\d+"})
+     *@Route("/tienda/{id}/show", name="productos_show", requirements={"id"="\d+"})
      */
     public function show(int $id)
     {
@@ -90,6 +140,12 @@ class ProductoController extends AbstractController
     public function filter(Request $request)
     {
         $text = $request->query->getAlnum("text");
+        $minDate = $request->query->getAlnum("min");
+        $maxDate = $request->query->getAlnum("max");
+        $categoria = $request->query->getAlnum("categoria");
+        $nombre = $request->query->getAlnum("nombre");
+
+
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         if (!empty($text))
             $productos = $productoRepository->filterByText($text);
@@ -99,6 +155,30 @@ class ProductoController extends AbstractController
             'productos' => $productos
         ));
 
+
+    }
+
+    /**
+     * @Route("/tienda/filter", name="tienda_filter")
+     */
+    public function filterTienda(Request $request)
+    {
+        $text = $request->query->getAlnum("text");
+        $minDate = $request->query->getAlnum("min");
+        $maxDate = $request->query->getAlnum("max");
+
+
+        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
+        if (!empty($text))
+            $productos = $productoRepository->filterByText($text);
+        if (empty($text) && !empty($minDate || $maxDate))
+            $productos = $productoRepository->filterByDate($minDate, $maxDate);
+
+        else
+            $productos = $productoRepository->findBy([], ["nombre" => "ASC"]);
+        return $this->render('back/back-productos.html.twig', array(
+            'productos' => $productos
+        ));
     }
 
 
@@ -144,7 +224,7 @@ class ProductoController extends AbstractController
 
             return $this->redirectToRoute('admin');
         }
-        return $this->render('back/productos-create.html.twig', array(
+        return $this->render('producto/productos-create.html.twig', array(
             'form' => $form->createView()));
     }
 

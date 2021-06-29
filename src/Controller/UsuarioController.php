@@ -6,6 +6,7 @@ use App\Entity\Registra;
 use App\Entity\Usuario;
 use App\Form\EditUsuarioType;
 use App\Form\EditPassUsuarioType;
+use App\Form\RegistraType;
 use App\Form\UsuarioType;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -26,31 +27,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UsuarioController extends AbstractController
 {
     /**
-     * @Route("/perfil/{id}", name="perfil", requirements={"id"="\d+"})
+     * @Route("/perfil", name="perfil")
      */
-    public function show(int $id)
+    public function show()
     {
-        $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
-        $usuario = $usuarioRepository->find($id);
 
 
-        if ($usuario) {
-            if ($this->getUser() === $usuario){
+        return $this->render('usuario/perfil.html.twig');
 
-                return $this->render('usuario/perfil.html.twig', ["usuario"=>$usuario]
-                );
-            } else {
-
-
-                return $this->render('/bundles/TwigBundle/Exception/error403.html.twig', [
-                        'usuario' => null]
-                );
-            }
-        }
-        else
-            return $this->render('/bundles/TwigBundle/Exception/error403.html.twig', [
-                    'usuario' => null]
-            );
     }
 
     /**
@@ -368,5 +352,46 @@ class UsuarioController extends AbstractController
         }
         return $this->render('usuario/usuario_editPass.html.twig', array(
             'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/perfil/reservas/{id}/edit", name="reservas_editUser")
+     */
+    public function editReserva(int $id, Request $request)
+    {
+        $reservasRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reservas = $reservasRepository->find($id);
+        $form = $this->createForm(RegistraType::class, $reservas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $reservas = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reservas);
+            $entityManager->flush();
+            $this->addFlash('success', "La reserva ha sido editado correctamente");
+            return $this->redirectToRoute('perfil', array("id" => $id));
+        }
+
+        return $this->render('usuario/usuario_editReserva.html.twig', array(
+            'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/perfil/reservas/{id}/show", name="reserva_showUser", requirements={"id"="\d+"})
+     */
+    public function showReservaUser(int $id)
+    {
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reserva = $registraRepository->find($id);
+
+        if ($reserva) {
+            return $this->render('usuario/usuario_reservaShow.html.twig', ["reserva" => $reserva]
+            );
+        } else
+            return $this->render('usuario/usuario_reservaShow.html.twig', [
+                    'reserva' => null]
+            );
     }
 }
