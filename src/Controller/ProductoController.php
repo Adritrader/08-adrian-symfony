@@ -136,7 +136,7 @@ class ProductoController extends AbstractController
 
 
     /**
-     * @Route("admin/productos/filter", name="back_productos_filter")
+     * @Route("admin/productos/filter", name="back_productos_filter", methods={"GET","POST"})
      */
     public function filter(Request $request, PaginatorInterface $paginator)
     {
@@ -145,7 +145,6 @@ class ProductoController extends AbstractController
         $maxDate = $request->query->getAlnum("max");
 
 
-        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         if (!empty($text))
             $pagination = $this->getDoctrine()
                 ->getRepository(Producto::class)
@@ -155,10 +154,10 @@ class ProductoController extends AbstractController
                 ->getRepository(Producto::class)
                 ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);*/
 
-        else
+        if (empty($text))
             $pagination = $this->getDoctrine()
                 ->getRepository(Producto::class)
-                ->findAll();
+                ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);
 
         return $this->render('back/back-productos.html.twig', array(
             'pagination' => $pagination

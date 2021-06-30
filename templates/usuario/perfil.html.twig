@@ -21,7 +21,7 @@
             <a href="{{ path('home')}}" class="mr-5">
                 <button class="button-four bg-danger"><i class="fas fa-chevron-circle-left mx-1"></i>Atrás</button>
             </a>
-            <a href="/perfil/{{  app.user.id }}/verReservas" class="ml-5"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
+            <a href="{{ path('reservas_show', {id: app.user.id}) }}" class="ml-5"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Reservas</button></a>
             <a href="/perfil/{{  app.user.id }}/verPedidos" class="ml-2"><button class="myButton"><i class="fa fa-edit mr-1"></i>Ver Pedidos</button></a>
         </div>
 
@@ -35,16 +35,24 @@
         -->
 
 
-        <div class="card col-lg-5 col-md-6 py-2 mt-4 mb-4">
-            <div class="card col-lg-4 col-md-4 py-2">
+        <div class="card col-lg-5 col-md-4 col-sm-6 py-2 mt-4 mb-4">
+            <div class="card-header">
+                <h2>Mi perfil</h2>
+            </div>
+            <div class="col-lg-4 col-md-4 py-2">
                 <img class="rounded w-100" src="{{asset(avatar_public_directory ~ app.user.avatar)}}" alt="poster">
             </div>
             <input type="hidden" name="id" value="{{  app.user.id }}">
-            <h2><strong>Nombre:</strong>{{  app.user.nombre }}</h2>
-            <h2><strong>Apellidos:</strong>{{  app.user.apellidos }}</h2>
-            <h2 class="card-title"><strong>Username:</strong>{{  app.user.username }}</h2>
-            <h2 class="text-muted mt-2"><strong>Email:</strong>{{  app.user.email }}</h2>
-            <h2><strong>Teléfono:</strong>{{  app.user.telefono }}</h2>
+            <h3 class="card-title mt-3 ml-5"><strong>Nombre:</strong> {{  app.user.nombre }}</h3>
+            <hr>
+            <h3 class="card-title ml-5"><strong>Apellidos:</strong> {{  app.user.apellidos }}</h3>
+            <hr>
+            <h3 class="card-title ml-5"><strong>Username:</strong> {{  app.user.username }}</h3>
+            <hr>
+            <h3 class="card-title ml-5"><strong>Email:</strong> {{  app.user.email }}</h3>
+            <hr>
+            <h3 class="card-title ml-5"><strong>Teléfono:</strong> {{  app.user.telefono }}</h3>
+            <hr class="mb-2">
 
             <div class="col-12">
                 <a href="{{ path('myuser_edit', {id: app.user.id})}}" ><button class="button-five"><i class="fa fa-edit mr-1"></i>Editar</button></a>

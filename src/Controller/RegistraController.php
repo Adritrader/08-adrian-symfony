@@ -32,6 +32,7 @@ class RegistraController extends AbstractController
 
             $user = $this->getUser();
             $reserva->setUsuario($user);
+            $reserva->setActive(true);
 
             //Obtener datos del formulario
 
@@ -65,6 +66,44 @@ class RegistraController extends AbstractController
     }
 
     /**
+     * @Route("admin/reservas/filter", name="back_reservas_filter")
+     */
+    public function filter(Request $request)
+    {
+
+        $page = $request->query->getAlnum("page");
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');
+
+        $text = $request->query->getAlnum("text");
+        $reservasRepository = $this->getDoctrine()->getRepository(Registra::class);
+
+        if (empty($page)){
+            $page = 1;
+        }
+
+        if (!empty($text)) {
+            $reservas = $reservasRepository->filterByText($text);
+            $paginas = ceil(count($reservas) / 4);
+        }
+
+        if(empty($reservas)){
+
+            $reservas = $reservasRepository->findAll();
+            $paginas = ceil(count($reservas) / 4);
+
+        }
+
+        return $this->render('back/back-reservas.html.twig', array(
+            'reservas' => $reservas,
+            'paginas' => $paginas
+
+        ));
+
+    }
+
+    /**
      * @Route("admin/reservas/create", name="reservas_createBack")
      */
     public function createReserva(Request $request): Response
@@ -78,7 +117,7 @@ class RegistraController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Coger el id del usuario y asignarlo a la reserva
+            $reserva->setActive(true);
 
             //Obtener datos del formulario
 

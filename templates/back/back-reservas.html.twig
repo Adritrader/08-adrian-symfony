@@ -8,7 +8,7 @@
         <div class="row fila-inputs-productos">
             <div class="col-2"></div>
             <div class="col-7 col-lg-7 col-sm-10 mr-4 bg-light" style="border: 2px solid black">
-                <form method="get" action="productos/filter"
+                <form method="get" action="{{ path('back_reservas_filter') }}"
                       class="form-inline">
                     <div class="form-group">
                         <input name="text"
@@ -17,12 +17,12 @@
                     </div>
                     <div class="form-check-inline ml-3">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="fecha" value="fecha">&nbsp;Fecha
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <label class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="optradio" id="descripcion" value="descripcion">&nbsp;Descripcion                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="hora" value="hora">&nbsp;Hora                        &nbsp;
                         </label></div>
                     <div class="form-check-inline">
                         <label class="form-check-inline">

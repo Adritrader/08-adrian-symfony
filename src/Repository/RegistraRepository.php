@@ -22,6 +22,22 @@ class RegistraRepository extends ServiceEntityRepository
     /**
      * @return Registra[] Returns an array of Producto objects
      */
+    public function filterByText(string $text): array
+    {
+        $qb = $this->createQueryBuilder('reg')
+            ->orWhere('reg.hora LIKE :value');
+
+        $qb->setParameter('value', "%".$text."%");
+        $qb->orderBy('reg.id', 'ASC');
+        //$qb->setMaxResults(4);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @return Registra[] Returns an array of Producto objects
+     */
     public function lastReserves(): array
     {
         $qb = $this->createQueryBuilder('res');
@@ -40,6 +56,21 @@ class RegistraRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('res')
         ->where('res.active = true');
+        $qb->orderBy('res.fecha', 'DESC');
+        $qb->setMaxResults(10);
+        //$qb->setFirstResult(4);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @return Registra[] Returns an array of Producto objects
+     */
+    public function activeReservesById(int $id): array
+    {
+        $qb = $this->createQueryBuilder('res')
+            ->where('res.usuario = ' . $id)
+            ->andWhere('res.active = true');
         $qb->orderBy('res.fecha', 'DESC');
         $qb->setMaxResults(10);
         //$qb->setFirstResult(4);

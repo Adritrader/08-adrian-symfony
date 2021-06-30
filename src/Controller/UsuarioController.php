@@ -42,16 +42,34 @@ class UsuarioController extends AbstractController
      */
     public function filter(Request $request)
     {
+
+        $page = $request->query->getAlnum("page");
+
         $this->denyAccessUnlessGranted('ROLE_ADMIN',
             null, 'Acceso restringido a administradores');
         $text = $request->query->getAlnum("text");
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
-        if (!empty($text))
+
+        if (empty($page)){
+            $page = 1;
+        }
+
+        if (!empty($text)) {
             $usuarios = $usuarioRepository->filterByText($text);
-        else
-            $usuarios = $usuarioRepository->findBy([], ["nombre" => "ASC"]);
+            $paginas = ceil(count($usuarios) / 4);
+        }
+
+        if(empty($usuarios)){
+
+            $usuarios = $usuarioRepository->findAll();
+            $paginas = ceil(count($usuarios) / 4);
+
+        }
+
         return $this->render('back/back-usuarios.html.twig', array(
-            'usuarios' => $usuarios
+            'usuarios' => $usuarios,
+            'paginas' => $paginas
+
         ));
 
     }
@@ -288,7 +306,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     *@Route("/admin/usuarios/{id}/delete/yes", name="usuarios_destroy", requirements={"id"="\d+"})
+     *@Route("/admin/usuarios/{id}/destroy", name="usuarios_destroy", requirements={"id"="\d+"})
      */
     public function destroy(int $id)
     {
@@ -321,7 +339,8 @@ class UsuarioController extends AbstractController
     public function showReservasUser(int $id)
     {
         $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
-        $reservas = $registraRepository->findBy(["usuario" => $id]);
+        $reservas = $registraRepository->activeReservesById($id);
+
 
         if ($reservas) {
             return $this->render('usuario/reservas_usuario.html.twig', ["reservas" => $reservas]

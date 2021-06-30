@@ -24,7 +24,6 @@ class UsuarioRepository extends ServiceEntityRepository
     /**
      * @return Usuario[] Returns an array of Producto objects
      */
-
     public function filterByText(string $text): array
     {
         $qb = $this->createQueryBuilder('usu')
@@ -33,7 +32,7 @@ class UsuarioRepository extends ServiceEntityRepository
 
         $qb->setParameter('value', "%".$text."%");
         $qb->orderBy('usu.nombre', 'ASC');
-        $qb->setMaxResults(4);
+        //$qb->setMaxResults(4);
         //$qb->setFirstResult(4);
         $query = $qb->getQuery();
         return $query->getResult();
@@ -53,7 +52,7 @@ class UsuarioRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findAllPaginated($currentPage = 1):?Paginator
+    public function findAllPaginated(int $currentPage = 1):?Paginator
     {
         $query = $this->createQueryBuilder('usu')
             ->orderBy('usu.id', 'ASC')

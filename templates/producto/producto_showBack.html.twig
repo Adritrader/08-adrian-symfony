@@ -12,12 +12,18 @@
             </a></div>
 
         <div class="card col-lg-3 col-md-3 mt-5 mb-5 align-content-center">
+            <div class="row justify-content-center">
             <img class="rounded w-50 mt-3" src="{{ asset(pictures_public_directory ~  producto.imagen) }}" alt="poster"
                  height="200">
-            <h2 class="card-title p-3"><strong>Nombre:</strong> {{ producto.nombre }}</h2>
-            <h2 class="mt-2"><strong>Categoria:</strong> {{ producto.categoria }}</h2>
-            <h2><em><strong>Descripcion:</strong> {{ producto.descripcion }}</h2>
-            <h2><em><strong>Precio:</strong> {{ producto.precio }} €</h2>
+            </div>
+            <hr>
+            <h3 class="card-title mt-2"><strong>Nombre:</strong> {{ producto.nombre }}</h3>
+            <hr>
+            <h3 class="card-title mt-2"><strong>Categoria:</strong> {{ producto.categoria }}</h3>
+            <hr>
+            <h3 class="card-title mt-2"><strong>Descripcion:</strong> {{ producto.descripcion }}</h3>
+            <hr>
+            <h3 class="card-title mt-2"><strong>Precio:</strong> {{ producto.precio }} €</h3>
         </div>
     </div>
 
