@@ -7,10 +7,15 @@ use App\Entity\Producto;
 use App\Entity\Registra;
 use App\Entity\Usuario;
 use App\Repository\PedidosRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ProductoType;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 
 /**
  * Class AdminController
@@ -50,30 +55,17 @@ class AdminController extends AbstractController
     /**
      * @Route("/productos", name="admin_productos")
      */
-
-    public function backProductos(): Response
+    public function backProductos2(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $page = filter_input(INPUT_GET , "page");
+        $pagination = $this->getDoctrine()
+            ->getRepository(Producto::class)
+            ->getAllProductsPaginated($request, $paginator);
 
-        if (empty($page)){
-            $page = 1;
-        }
-
-        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $productos = $productoRepository->findAllPaginated($page);
-
-        $paginas = ceil(count($productos)/4);
-
-        if ($productos)
-        {
-            return $this->render('back/back-productos.html.twig', ["productos"=>$productos, "paginas"=> $paginas]
-            );
-        }
-        else
-            return $this->render('back/back-productos.html.twig', [
-                    'productos' => null]
-            );
+        return $this->render('back/back-productos.html.twig', [
+            'controller_name' => 'ProductoController',
+            'pagination' => $pagination
+        ]);
     }
 
     /**
@@ -111,7 +103,7 @@ class AdminController extends AbstractController
     public function backReservas(): Response
     {
         $reseravsRepository = $this->getDoctrine()->getRepository(Registra::class);
-        $reservas = $reseravsRepository->findAll();
+        $reservas = $reseravsRepository->activeReserves();
 
 
         if ($reservas)
@@ -145,5 +137,14 @@ class AdminController extends AbstractController
             );
     }
 
+    /**
+     * @Route("/api", name="back_api")
+     */
+    public function backApi()
+    {
+
+
+        return $this->render("back/back-api.html.twig");
+    }
 
 }

@@ -42,7 +42,7 @@
 
                 <div class="col-3 col-lg-6 ml-3">
                     <div>
-                        <a style="text-decoration: none; color: white" class="btn" href="reservas/create"><button class="button-four bg-dark">
+                        <a style="text-decoration: none; color: white" class="btn" href="{{ path('reservas_createBack') }}"><button class="button-four bg-dark">
                                 <i class="fa fa-plus-circle">
                                 </i> Añadir reserva</button></a>
                     </div>
@@ -70,13 +70,13 @@
                                         <td class="text-center">{{reserva.horaCita}}</td>
                                         <td class="text-center">{{  reserva.fechaCita | date("Y-m-d") }}</td>
 
-                                        <td class="text-center" style="width: 140px"><a href="reservas/edit/{{ reserva.id }}">
+                                        <td class="text-center" style="width: 140px"><a href="{{ path('reservas_edit', {id: reserva.id}) }}">
                                                 <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                             </a>
-                                            <a href="reservas/delete/{{ reserva.id }}">
+                                            <a href="{{ path('reservas_delete', {id: reserva.id}) }}">
                                                 <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                             </a>
-                                            <a href="reservas/show/{{ reserva.id }}">
+                                            <a href="{{ path('reservas_showBack', {id: reserva.id}) }}">
                                                 <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
                                             </a>
                                         </td>

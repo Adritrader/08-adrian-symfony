@@ -36,8 +36,8 @@ h2 {
 }
 
 
-.active {
-  background-color: rgb(124, 0, 128);
+.active3 {
+  background-color: rgb(193, 122, 190);
   color: white;
 }
 
@@ -1017,8 +1017,8 @@ iframe .blog {
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: rgba(117, 2, 69, 0.356);
-  color: white;
+  background-color: #496370 !important;
+  color: black !important;
   padding: 3px;
 
 }

@@ -4,12 +4,13 @@
 namespace App\Form;
 
 use App\Entity\Producto;
-use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,14 @@ class ProductoType extends AbstractType
         $builder
 
             ->add('nombre', TextType::class)
-            ->add('categoria', TextType::class)
+            ->add('categoria', ChoiceType::class, [
+                'choices'  => [
+                    'Champu' => 'Champu',
+                    'Tratamiento' => 'Tratamiento',
+                    'Accesorio' => 'Accesorio',
+
+                ],
+            ])
             ->add('descripcion', TextareaType::class)
             ->add('precio', TextType::class)
             ->add('added_on', DateType::class)

@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row fila-ruta">
                 <div class="col-5 col-ruta">
-                    <div><span>Estas aquí: </span><a href="/" class="active">Home</a></div>
+                    <div><span>Estas aquí: </span><a href="/" class="active3">Home</a></div>
                 </div>
             </div>
         </div>
@@ -117,7 +117,9 @@
     <div class="container-fluid">
         <div class="row fila-reserva">
             <div class="col-12 boton-reserva">
-                <a href="/reserva-cita"><button class="button-three">Reservar cita</button></a>
+                {% if app.user %}
+                <a href="{{ path('reservas_create') }}"><button class="button-three">Reservar cita</button></a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -35,7 +35,7 @@
                                 <td class="text-center" style="width: 140px"><a href="{{ path('reservas_editUser', {id: reserva.id}) }}">
                                         <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                     </a>
-                                    <a href="reservas/delete/{{ reserva.id }}">
+                                    <a href="{{ path('usuario_reservaDelete', {id: reserva.id}) }}">
                                         <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                     </a>
                                     <a href="{{ path('reserva_showUser', {id: reserva.id}) }}">

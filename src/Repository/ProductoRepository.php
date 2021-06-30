@@ -173,17 +173,17 @@ class ProductoRepository extends ServiceEntityRepository
      * @param string $maxDate
      * @return \Knp\Component\Pager\Pagination\PaginationInterface
      **/
-    public function getByTitleDatePaginated(string $text, Request $request, PaginatorInterface $paginator, string $minDate = "00010101", string $maxDate = "30000101")
+    public function getByNameDatePaginated(string $text, Request $request, PaginatorInterface $paginator, string $minDate = "00010101", string $maxDate = "30000101")
     {
-    $qb = $this->createQueryBuilder('c')
-    ->where('c.added_on BETWEEN :min AND :max')
-    ->andWhere('c.categoria LIKE :value')
-    ->andWhere('c.nombre LIKE :value');
+    $qb = $this->createQueryBuilder('pro')
+    ->where('pro.added_on BETWEEN :min AND :max')
+    ->andWhere('pro.categoria LIKE :value')
+    ->andWhere('pro.nombre LIKE :value');
 
     $qb->setParameter('min', $minDate);
     $qb->setParameter('max', $maxDate);
     $qb->setParameter('value', "%".$text."%");
-    $qb->orderBy('c.added_on', 'ASC');
+    $qb->orderBy('pro.added_on', 'ASC');
     $query = $qb->getQuery();
 
     $pagination = $paginator->paginate(
@@ -193,6 +193,35 @@ class ProductoRepository extends ServiceEntityRepository
 
     return $pagination;
 }
+
+    /**
+     * @param string $text
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param string $minDate
+     * @param string $maxDate
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     **/
+    public function getAllProductsPaginated2(string $text, Request $request, PaginatorInterface $paginator, string $minDate = "00010101", string $maxDate = "30000101")
+    {
+        $qb = $this->createQueryBuilder('pro')
+            ->where('pro.added_on BETWEEN :min AND :max')
+            ->andWhere('pro.categoria LIKE :value')
+            ->andWhere('pro.nombre LIKE :value');
+
+        $qb->setParameter('min', $minDate);
+        $qb->setParameter('max', $maxDate);
+        $qb->setParameter('value', "%".$text."%");
+        $qb->orderBy('pro.added_on', 'ASC');
+        $query = $qb->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            6 /* limit per page */);
+
+        return $pagination;
+    }
 
 
 

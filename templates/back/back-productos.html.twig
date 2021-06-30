@@ -8,7 +8,7 @@
         <div class="row fila-inputs-productos">
             <div class="col-2"></div>
             <div class="col-7 col-lg-7 col-sm-10 mr-4 bg-light" style="border: 2px solid black">
-                <form method="get" action="productos/filter"
+                <form method="get" action="{{ path('back_productos_filter') }}"
                       class="form-inline">
                     <div class="form-group">
                         <input name="text"
@@ -17,20 +17,35 @@
                     </div>
                     <div class="form-check-inline ml-3">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="categoria" value="categoria">&nbsp;Categoria
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <label class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="optradio" id="descripcion" value="descripcion">&nbsp;Descripcion                        &nbsp;
+                            <input class="form-check-input" type="radio" name="optradio" id="nombre" value="nombre">&nbsp;Nombre
+                            &nbsp;
                         </label></div>
-                    <div class="form-check-inline">
-                        <label class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="optradio" id="both" value="both" checked>&nbsp;Ambos                        &nbsp;
-                        </label>
+                    <div class="col-3 col-lg-3 col-sm-3 ml-5 bg-light">
+                        <div class="form-group mt-2">
+                            <label for="min" class="mr-1">Min</label>
+                            <input name="min"
+                                   value=""
+                                   type="date" placeholder="Buscar" id="min" aria-label="Search">
+                        </div>
+                        <div class="form-group mt-2 mb-2">
+                            <label for="max" class="mr-1">Max</label>
+                            <input name="max"
+                                   value=""
+                                   type="date" placeholder="Buscar" id="max" aria-label="Search">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <button style="margin-top: 15px; margin-left: 0px" class="button-four" type="submit" name="botonFiltrar">Buscar</button>
+                    <div class="col-1 col-lg-1 col-sm-3 bg-light">
+                        <h5>Busca entre 2 fechas</h5>
+                    </div>
+                    <div class="form-group mr-2">
+                        <button style="margin-top: 15px; margin-left: 40px" class="button-four" type="submit"
+                                name="botonFiltrar">Buscar
+                        </button>
                     </div>
                 </form>
             </div>
@@ -62,8 +77,8 @@
                             <th class="text-center">Añadido</th>
                             <th class="text-center">Acciones</th>
                         </tr>
-                        {% if productos %}
-                            {% for producto in productos %}
+                        {% if pagination %}
+                            {% for producto in pagination %}
                                 <tr>
                                     <td class="text-center"><img src="{{ asset(pictures_public_directory ~  producto.imagen)}}" height="125" width="125"></td>
                                     <td class="text-center">{{producto.nombre}}</td>
@@ -71,13 +86,13 @@
                                     <td class="text-center">{{ producto.descripcion }}</td>
                                     <td class="text-center">{{ producto.precio}}</td>
                                     <td class="text-center">{{ producto.addedon | date("Y-m-s")}}</td>
-                                    <td class="text-center" style="width: 140px"><a href="productos/{{ producto.id }}/edit">
+                                    <td class="text-center" style="width: 140px"><a href="{{ path('productos_edit', {id: producto.id}) }}">
                                             <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit"></i> Editar</button>
                                         </a>
-                                        <a href="productos/{{ producto.id }}/delete">
+                                        <a href="{{ path('productos_delete', {id: producto.id}) }}">
                                             <button type="button" class="btn btn-danger my-1"><i class="fa fa-trash"></i> Borrar</button>
                                         </a>
-                                        <a href="productos/{{ producto.id }}/show">
+                                        <a href="{{ path('productos_showBack', {id: producto.id}) }}">
                                             <button type="button" class="btn btn-info my-1 px-3 my-1"><i class="fa fa-eye"></i> Ver</button>
                                         </a>
                                     </td>
@@ -92,12 +107,9 @@
                                 <div class="row justify-content-center">
                                     <div class="col-1">
                                         <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                                {% for i in 1 .. paginas %}
-                                                    <li class="page-item" style="padding: 0px !important;"><a style="color: black" class="page-link active"
-                                                                                                              href="/admin/productos?page={{i}}">{{i}}</a></li>
-                                                {% endfor %}
-                                            </ul>
+                                            <div>
+                                                {{knp_pagination_render(pagination)}}
+                                            </div>
                                         </nav>
 
                                     </div>

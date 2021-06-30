@@ -1,0 +1,30 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}BackOffice | Index {% endblock %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <h1>Api Routes</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-1" style="margin-top: -40px">
+            <a href="{{ path('admin') }}">
+                <button class="button-four bg-danger"><i class="fas fa-chevron-circle-left mx-1"></i>Atrás</button>
+            </a></div>
+
+        <div class="card col-lg-5 col-md-5 mt-5 mb-5 align-content-center">
+
+            <h2 class="card-title p-3"><strong>Productos:</strong><a href="{{ path('api_productos_links') }}">&nbsp;/api/v1/productos</a></h2>
+            <h2 class="card-title p-3"><strong>Producto/id:</strong><a href="{{ path('api_producto_show', {id: 3}) }}">&nbsp;/api/v1/productos/3</a>&nbsp;&nbsp;&nbsp;Ejemplo</h2>
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

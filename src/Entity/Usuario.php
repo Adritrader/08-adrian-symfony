@@ -26,59 +26,58 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "El nombre es obligatorio")
      */
-    private $nombre;
+    private ?string $nombre;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "Los apellidos es obligatorio")
      */
-    private $apellidos;
+    private ?string $apellidos;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank( message = "El telefono es obligatorio")
      */
-    private $telefono;
+    private ?int $telefono;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(
-     *     message = "The email is not a valid email.")
+     * @Assert\Email( message = "The email is not a valid email.")
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "El username es obligatorio")
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank( message = "El password es obligatorio")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $avatar;
+    private ?string $avatar;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $role;
+    private string $role;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $updated_at;
+    private ?string $updated_at;
 
     /**
      * @ORM\OneToMany(targetEntity=Pedidos::class, mappedBy="usuario", orphanRemoval=true)
@@ -100,7 +99,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
 
@@ -112,7 +111,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->apellidos;
     }
 
-    public function setApellidos(string $apellidos): self
+    public function setApellidos(?string $apellidos): self
     {
         $this->apellidos = $apellidos;
 
@@ -124,7 +123,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->telefono;
     }
 
-    public function setTelefono(int $telefono): self
+    public function setTelefono(?int $telefono): self
     {
         $this->telefono = $telefono;
 
@@ -136,7 +135,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -148,7 +147,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -172,7 +171,7 @@ class Usuario implements UserInterface, \Serializable
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
 

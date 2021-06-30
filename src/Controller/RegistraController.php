@@ -31,7 +31,7 @@ class RegistraController extends AbstractController
             //Coger el id del usuario y asignarlo a la reserva
 
             $user = $this->getUser();
-            $reserva->setUsuarioId($user->getId());
+            $reserva->setUsuario($user);
 
             //Obtener datos del formulario
 
@@ -65,7 +65,7 @@ class RegistraController extends AbstractController
     }
 
     /**
-     * @Route("/admin/reservas/create", name="reservas_createback")
+     * @Route("admin/reservas/create", name="reservas_createBack")
      */
     public function createReserva(Request $request): Response
     {
@@ -107,13 +107,13 @@ class RegistraController extends AbstractController
 
         //Si no se ha podido realizar vuelve a enviar a la pagina de registro.
 
-        return $this->render('back/reservas-create.html.twig', array(
+        return $this->render('registra/reservas-create.html.twig', array(
             'form' => $form->createView()));
     }
 
 
     /**
-     * @Route("admin/reservas/show/{id}", name="reservas_showBack", requirements={"id"="\d+"})
+     * @Route("admin/reservas/{id}/show", name="reservas_showBack", requirements={"id"="\d+"})
      */
     public function showReservasBack(int $id)
     {
@@ -130,25 +130,9 @@ class RegistraController extends AbstractController
     }
 
 
-    /**
-     * @Route("admin/productos/filter", name="back-productos")
-     */
-    public function filter(Request $request)
-    {
-        $text = $request->query->getAlnum("text");
-        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        if (!empty($text))
-            $productos = $productoRepository->filterByText($text);
-        else
-            $productos = $productoRepository->findBy([], ["nombre" => "ASC"]);
-        return $this->render('back/back-productos.html.twig', array(
-            'productos' => $productos
-        ));
-
-    }
 
     /**
-     * @Route("/admin/reservas/edit/{id}", name="reservas_edit")
+     * @Route("admin/reservas/{id}/edit", name="reservas_edit")
      */
     public function editReserva(int $id, Request $request)
     {
@@ -163,30 +147,58 @@ class RegistraController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservas);
             $entityManager->flush();
-            $this->addFlash('success', "La reserva ha sido editado correctamente");
+            $this->addFlash('success', "La reserva ha sido editada correctamente");
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('back/reservas-edit.html.twig', array(
+        return $this->render('registra/reservas-edit.html.twig', array(
             'form' => $form->createView()));
     }
 
-    /**
-     * @Route("/admin/pedidos/delete/{id}", name="")
-     */
-    public function delete(int $id)
-    {
-        $entityManager =$this->getDoctrine()->getManager();
-        $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
-        $producto = $productoRepository->find($id);
 
-        if ($producto) {
-            $entityManager->remove($producto);
+    /**
+     * @Route("admin/reservas/{id}/delete", name="reservas_delete")
+     */
+    public function deleteReserva(int $id)
+    {
+
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reserva = $registraRepository->find($id);
+
+
+        return $this->render('registra/reserva_delete.html.twig',  ["reserva" => $reserva]);
+    }
+
+    /**
+     *@Route("admin/reservas/{id}/destroy", name="reservas_destroy", requirements={"id"="\d+"})
+     */
+    public function destroyReserva(int $id)
+    {
+
+        $entityManager =$this->getDoctrine()->getManager();
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reserva = $registraRepository->find($id);
+
+        if ($reserva) {
+
+            $reserva->setActive(false);
+            $entityManager->persist($reserva);
             $entityManager->flush();
-            $this->addFlash('success', "El producto " . $producto->getNombre() . " ha sido eliminado correctamente!");
+
+            //LOGGER
+
+            $logger = new Logger('reserva');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info("La reserva ha sido eliminada");
+
+            //FLASH MESSAGE
+
+            $this->addFlash('success', "La reserva ha sido eliminada correctamente");
+
             return $this->redirectToRoute('admin');
         }
-        return $this->render('back/back-productos.html.twig');
+
+        return $this->render('back/back-index.html.twig');
     }
 
 }

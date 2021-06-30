@@ -83,7 +83,7 @@
                                 Log out
                             </a>
 
-                            <a style="color: #00e069" href="/perfil"><i class="fa fa-user" style="color: #00e069 !important; margin-right: 5px;"></i>{{ app.user.username }}</a>
+                            <a style="color: #00e069" href="/perfil"><img class="mx-2" src="{{ asset(avatar_public_directory ~  app.user.avatar)}}" height="30" width="30">{{ app.user.username }}</a>
 
                     {% else %}
 
@@ -139,6 +139,12 @@
                             <li class="nav-item">
                                 <a class="nav-item nav-link"  aria-haspopup="false" aria-expanded="false"
                                    href="   {{ path('admin') }}">BackOffice</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item nav-link"  aria-haspopup="false" aria-expanded="false"
+                                   href="{{ path('admin_usuarios') }}">Gestión Usuarios</a>
+
                             </li>
                         {% endif %}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

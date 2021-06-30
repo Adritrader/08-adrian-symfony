@@ -1,0 +1,38 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Juan Bisquert | Peluqueria{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+
+
+            <!--MESSAGE
+
+              <div class="alert alerta-login" role="alert">
+
+              </div> -->
+
+
+            <div class="card col-lg-4 col-md-4 mx-2 mt-5">
+                <h1 class="card-title"><strong>Username:</strong> {{reserva.usuario.username}}</h1>
+                <p class="text-muted mt-2"><strong>Servicio:</strong>{{reserva.ServicioId.nombre}}</p>
+                <h2><em><strong>Hora:</strong>{{reserva.horaCita}}</h2>
+                <h2><em><strong>Fecha:</strong>{{  reserva.fechaCita | date("Y-m-d") }}</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-4 col-lg-4 col-md-6">
+
+                    <h2>¿Quieres borrar esta reserva?</h2>
+
+                    <a href="{{ path('reservas_destroy', {id: reserva.id}) }}"><button class="btn btn-danger">Si</button></a>
+                    <a href="{{ path('admin') }}"><button class="btn btn-primary">No</button></a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

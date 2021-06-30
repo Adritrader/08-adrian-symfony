@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace App\Controller;
 
-use App\Entity\Movie;
 use App\Entity\Producto;
 use App\Form\ProductoType;
 use Monolog\Handler\StreamHandler;
@@ -134,34 +133,44 @@ class ProductoController extends AbstractController
     }
 
 
+
+
     /**
-     * @Route("admin/productos/filter", name="back-productos")
+     * @Route("admin/productos/filter", name="back_productos_filter")
      */
-    public function filter(Request $request)
+    public function filter(Request $request, PaginatorInterface $paginator)
     {
         $text = $request->query->getAlnum("text");
         $minDate = $request->query->getAlnum("min");
         $maxDate = $request->query->getAlnum("max");
-        $categoria = $request->query->getAlnum("categoria");
-        $nombre = $request->query->getAlnum("nombre");
 
 
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         if (!empty($text))
-            $productos = $productoRepository->filterByText($text);
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);
+        /*if (empty($text) && !empty($minDate || $maxDate))
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);*/
+
         else
-            $productos = $productoRepository->findBy([], ["nombre" => "ASC"]);
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->findAll();
+
         return $this->render('back/back-productos.html.twig', array(
-            'productos' => $productos
+            'pagination' => $pagination
         ));
 
-
     }
+
 
     /**
      * @Route("/tienda/filter", name="tienda_filter")
      */
-    public function filterTienda(Request $request)
+    public function filterTienda(Request $request, PaginatorInterface $paginator)
     {
         $text = $request->query->getAlnum("text");
         $minDate = $request->query->getAlnum("min");
@@ -170,14 +179,21 @@ class ProductoController extends AbstractController
 
         $productoRepository = $this->getDoctrine()->getRepository(Producto::class);
         if (!empty($text))
-            $productos = $productoRepository->filterByText($text);
-        if (empty($text) && !empty($minDate || $maxDate))
-            $productos = $productoRepository->filterByDate($minDate, $maxDate);
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);
+        /*if (empty($text) && !empty($minDate || $maxDate))
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->getByNameDatePaginated($text, $request, $paginator, $minDate, $maxDate);*/
 
         else
-            $productos = $productoRepository->findBy([], ["nombre" => "ASC"]);
-        return $this->render('back/back-productos.html.twig', array(
-            'productos' => $productos
+            $pagination = $this->getDoctrine()
+                ->getRepository(Producto::class)
+                ->findAll();
+
+        return $this->render('front/tienda.html.twig', array(
+            'pagination' => $pagination
         ));
     }
 
@@ -287,7 +303,7 @@ class ProductoController extends AbstractController
     }
 
     /**
-     *@Route("/admin/productos/{id}/delete/yes", name="productos_destroy", requirements={"id"="\d+"})
+     *@Route("/admin/productos/{id}/destroy", name="productos_destroy", requirements={"id"="\d+"})
      */
     public function destroy(int $id)
     {

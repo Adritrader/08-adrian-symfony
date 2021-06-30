@@ -76,7 +76,7 @@ class Producto implements \Serializable
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
 
@@ -88,7 +88,7 @@ class Producto implements \Serializable
         return $this->categoria;
     }
 
-    public function setCategoria(string $categoria): self
+    public function setCategoria(?string $categoria): self
     {
         $this->categoria = $categoria;
 
@@ -100,7 +100,7 @@ class Producto implements \Serializable
         return $this->descripcion;
     }
 
-    public function setDescripcion(string $descripcion): self
+    public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
 
@@ -112,7 +112,7 @@ class Producto implements \Serializable
         return $this->precio;
     }
 
-    public function setPrecio(int $precio): self
+    public function setPrecio(?int $precio): self
     {
         $this->precio = $precio;
 
@@ -124,7 +124,7 @@ class Producto implements \Serializable
         return $this->imagen;
     }
 
-    public function setImagen(string $imagen): self
+    public function setImagen(?string $imagen): self
     {
         $this->imagen = $imagen;
 

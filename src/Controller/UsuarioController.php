@@ -7,6 +7,7 @@ use App\Entity\Usuario;
 use App\Form\EditUsuarioType;
 use App\Form\EditPassUsuarioType;
 use App\Form\RegistraType;
+use App\Form\UsuarioBackType;
 use App\Form\UsuarioType;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -31,7 +32,6 @@ class UsuarioController extends AbstractController
      */
     public function show()
     {
-
 
         return $this->render('usuario/perfil.html.twig');
 
@@ -119,9 +119,6 @@ class UsuarioController extends AbstractController
             $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
             $usuario->setPassword($hashedPassword);
 
-            //Asignamos el rol de usuario
-
-            $usuario->setRole("ROLE_USER");
 
             // Asignamos la fecha de actualización, por defecto es la fecha de creación del usuario
 
@@ -152,6 +149,77 @@ class UsuarioController extends AbstractController
     }
 
     /**
+     * @Route("admin/usuarios/create", name="usuarios_createBack")
+     */
+    public function createBack(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $usuario = new Usuario();
+
+        $form = $this->createForm(UsuarioBackType::class, $usuario);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $usuario = $form->getData();
+            if ($posterFile = $form['avatar']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
+
+                try {
+                    $projectDir = $this->getParameter('kernel.project_dir');
+                    $posterFile->move($projectDir . '/public/img/', $filename);
+
+                    if(empty($filename)){
+
+                        $usuario->setAvatar("nofoto.jpg");
+
+                    } else {
+
+                        $usuario->setAvatar($filename);
+
+                    }
+                } catch (FileException $e) {
+                    $this->addFlash('danger', $e->getMessage());
+                    return $this->redirectToRoute('login');
+                }
+            }
+
+            //Encriptamos la contraseña
+
+            $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
+            $usuario->setPassword($hashedPassword);
+
+
+            // Asignamos la fecha de actualización, por defecto es la fecha de creación del usuario
+
+            $updated = date("Y-m-d H:i:s", time());
+            $usuario->setUpdatedAt($updated);
+
+            // Guardamos el usuario en la BD
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($usuario);
+            $entityManager->flush();
+
+            //Logger
+
+            $logger = new Logger('usuario');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha registrado un usuario nuevo');
+
+            // Flash message
+
+            $this->addFlash('success', "Se ha registrado correctamente");
+
+
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('usuario/usuario_createBack.html.twig', array(
+            'form' => $form->createView()));
+    }
+
+
+
+    /**
      * @Route("/admin/usuarios/{id}/edit", name="usuarios_edit")
      */
     public function editUsuario(int $id, Request $request)
@@ -161,7 +229,7 @@ class UsuarioController extends AbstractController
             null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
-        $form = $this->createForm(EditUsuarioType::class, $usuarios);
+        $form = $this->createForm(UsuarioBackType::class, $usuarios);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -393,5 +461,46 @@ class UsuarioController extends AbstractController
             return $this->render('usuario/usuario_reservaShow.html.twig', [
                     'reserva' => null]
             );
+    }
+
+    /**
+     * @Route("/perfil/reservas/{id}/delete", name="usuario_reservaDelete")
+     */
+    public function deleteReserva(int $id)
+    {
+
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reserva = $registraRepository->find($id);
+
+
+        return $this->render('usuario/usuario_registraDelete.html.twig',  ["reserva" => $reserva]);
+    }
+
+    /**
+     *@Route("/perfil/reservas/{id}/destroy", name="usuarios_reservaDestroy", requirements={"id"="\d+"})
+     */
+    public function destroyReserva(int $id)
+    {
+
+        $entityManager =$this->getDoctrine()->getManager();
+        $registraRepository = $this->getDoctrine()->getRepository(Registra::class);
+        $reserva = $registraRepository->find($id);
+
+        if ($reserva) {
+
+            $reserva->setActive(false);
+            $entityManager->persist($reserva);
+            $entityManager->flush();
+
+            //LOGGER
+
+            $logger = new Logger('reserva');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info("La reserva ha sido eliminada");
+
+            return $this->redirectToRoute('perfil', array("id" => $id));
+        }
+
+        return $this->render('usuario/reservas_usuario.html.twig');
     }
 }
