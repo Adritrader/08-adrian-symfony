@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 30-06-2021 a las 23:31:18
+-- Tiempo de generación: 01-07-2021 a las 11:38:38
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -137,31 +137,20 @@ CREATE TABLE IF NOT EXISTS `registra` (
   PRIMARY KEY (`id`),
   KEY `IDX_DEC4855C3477C7E0` (`servicio_id_id`),
   KEY `IDX_DEC4855CDB38439E` (`USUARIO_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `registra`
 --
 
 INSERT INTO `registra` (`id`, `USUARIO_id`, `servicio_id_id`, `hora`, `fecha`, `active`) VALUES
-(1, 1, 1, '11:00:00', '2021-02-27 00:00:00', 0),
 (2, 3, 2, '18:00:00', '2021-01-09 00:00:00', 0),
 (3, 4, 5, '19:00:00', '2021-01-15 00:00:00', 1),
-(12, 1, 1, '09:30:00', '2016-01-01 00:00:00', 1),
-(13, 1, 1, '16:30:00', '2022-04-20 00:00:00', 1),
-(14, 1, 2, '16:30:00', '2021-07-16 00:00:00', 1),
-(16, 1, 1, '09:30:00', '2016-01-01 00:00:00', 1),
-(17, 1, 1, '09:30:00', '2016-01-01 00:00:00', 1),
-(18, 1, 1, '09:30:00', '2016-01-01 00:00:00', 1),
-(19, 1, 2, '09:30:00', '2021-08-21 00:00:00', 1),
 (20, 7, 4, '19:00:00', '2023-11-20 00:00:00', 1),
 (21, 7, 4, '19:00:00', '2023-11-20 00:00:00', 1),
 (22, 11, 3, '18:00:00', '2021-07-22 00:00:00', 0),
-(23, 1, 2, '16:30:00', '2021-07-20 00:00:00', NULL),
-(24, 1, 3, '16:30:00', '2021-08-13 00:00:00', 0),
-(25, 1, 1, '09:30:00', '2016-01-01 00:00:00', NULL),
-(26, 1, 4, '19:00:00', '2022-05-19 00:00:00', 1),
-(27, 20, 4, '12:00:00', '2021-09-13 00:00:00', 1);
+(27, 20, 4, '12:00:00', '2021-09-13 00:00:00', 1),
+(28, 23, 1, '16:30:00', '2021-05-19 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -207,14 +196,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `updated_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `telefono`, `email`, `username`, `password`, `avatar`, `role`, `updated_at`) VALUES
-(1, 'Adrian', 'Garcia', 652874956, 'adri_denia_123@hotmail.com', 'admin', 'admin', '83721bae2bd4.png', 'ROLE_ADMIN', NULL),
 (3, 'Juan', 'Gongora', 698777413, 'gongora@gmail.com', 'gongora', '1234', '8e438ca47233.jpg', 'ROLE_USER', NULL),
 (4, 'Juan', 'Gongora', 698777413, 'gongora@gmail.com', 'gongora2', '1234', 'fc2fbb2bdcdb.jpg', 'ROLE_USER', NULL),
 (7, 'Carlos', 'Pascual', 652312984, 'carlosps@hotmail.com', 'Carlos', '1234', '40c788f290c3.jpg', 'ROLE_USER', '2021-06-26'),
@@ -228,7 +216,10 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `telefono`, `email`, `userna
 (17, 'Adrian', 'Garcia', 652874956, 'adri_denia_123@hotmail.com', 'nuevo', '1234', '89346e4d48b2.jpg', 'ROLE_USER', NULL),
 (18, 'Sergio', 'Perez', 699887741, 'sergiop@gmail.com', 'sergiop', '1234', 'ebbdbb59fff9.jpg', 'ROLE_USER', '2021-06-18 00:00:00'),
 (20, 'VaporDev', 'Vapor', 699226886, 'vapordev@gmail.com', 'vapordev', '1234', 'd3c3c3b29b7d.jpg', 'ROLE_ADMIN', '2021-06-30'),
-(21, 'Adrian', 'Garcia', 652874956, 'adri@gmail.com', 'adri', '$argon2id$v=19$m=65536,t=4,p=1$azVBeEwxcmlYQjFGVmFmRA$1V36ervNTY92wUXLAOUb6rvt6x31CIF2aAhgkfl+JkY', 'ee9545594f7e.jpg', 'ROLE_USER', '2021-06-18 18:59:47');
+(21, 'Adrian', 'Garcia', 652874956, 'adri@gmail.com', 'adri', '$argon2id$v=19$m=65536,t=4,p=1$azVBeEwxcmlYQjFGVmFmRA$1V36ervNTY92wUXLAOUb6rvt6x31CIF2aAhgkfl+JkY', 'ee9545594f7e.jpg', 'ROLE_USER', '2021-06-18 18:59:47'),
+(23, 'User', 'User', 699226886, 'user@user.com', 'user', '$argon2id$v=19$m=65536,t=4,p=1$T0RUR3VwRzNrSmtLZ1dxZA$fyYxL8Igs6UoCetOUpsCKICkDr2Wh8HE1gy0GGgtRJk', '4ff4ed24256e.png', 'ROLE_USER', '2021-07-01 10:19:47'),
+(25, 'Admin', 'admin', 600000001, 'admin@admin.com', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$OEV4aGJhUFBiSjJqV2JHdw$IRngH1VUDFYgIAsXRQCPTzQrgg7+TMcVJyc5j18Y1AI', '2f3d266a1b10.png', 'ROLE_ADMIN', '2021-07-01 10:29:33'),
+(26, 'Manager', 'Manager', 600000002, 'manager@manager.es', 'manager', '$argon2id$v=19$m=65536,t=4,p=1$MGhvakx4Qm1ZVmlCdjNFeA$5QeiySmu2NcuCvMEf4TaTGJoYV+fD9vsHJsT178JX5k', 'd94c47c50c1d.png', 'ROLE_MANAGER', '2021-07-01 10:32:26');
 
 --
 -- Restricciones para tablas volcadas

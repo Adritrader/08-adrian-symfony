@@ -40,8 +40,8 @@ security:
 
     encoders:
         App\Entity\Usuario:
-            #algorithm: auto
-            plaintext
+            algorithm: auto
+            #plaintext
 
 
     role_hierarchy:

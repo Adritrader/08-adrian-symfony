@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class EditUsuarioType extends AbstractType
 {
@@ -25,7 +26,17 @@ class EditUsuarioType extends AbstractType
             ->add('username', TextType::class)
             ->add('avatar', FileType::class, array(
                 "attr" =>array("class" => "form-control"),
-                "data_class" => null
+                'constraints' => [
+                    new Image(['maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                        ],])
+                ],
+
+                "data_class" => null,
+
             ))
             ->add('create', SubmitType::class, array('label' => 'Guardar'));
     }

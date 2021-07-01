@@ -137,6 +137,10 @@ class UsuarioController extends AbstractController
             $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
             $usuario->setPassword($hashedPassword);
 
+            //Asignamos el rol por defecto
+
+            $usuario->setRole("ROLE_USER");
+
 
             // Asignamos la fecha de actualización, por defecto es la fecha de creación del usuario
 
@@ -160,7 +164,7 @@ class UsuarioController extends AbstractController
             $this->addFlash('success', "Se ha registrado correctamente");
 
 
-            return $this->redirectToRoute('perfil', ["id" => $usuario->getId()]);
+            return $this->redirectToRoute('login');
         }
         return $this->render('auth/register.html.twig', array(
             'form' => $form->createView()));
@@ -243,7 +247,7 @@ class UsuarioController extends AbstractController
     public function editUsuario(int $id, Request $request)
     {
 
-        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+        $this->denyAccessUnlessGranted('ROLE_USER',
             null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
@@ -357,8 +361,6 @@ class UsuarioController extends AbstractController
     public function editMyUser(int $id, Request $request)
     {
 
-        $this->denyAccessUnlessGranted('ROLE_ADMIN',
-            null, 'Acceso restringido a administradores');
         $usuarioRepository = $this->getDoctrine()->getRepository(Usuario::class);
         $usuarios = $usuarioRepository->find($id);
         $form = $this->createForm(EditUsuarioType::class, $usuarios);
