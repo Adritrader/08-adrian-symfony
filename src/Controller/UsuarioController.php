@@ -278,13 +278,13 @@ class UsuarioController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuarios);
             $entityManager->flush();
-            $this->addFlash('success', "El usuario " . $usuarios->getNombre() . " ha sido editado correctamente!");
+            $this->addFlash('success', "El usuario " . $usuarios->getUsername() . " ha sido editado correctamente!");
 
             //LOGGER
 
             $logger = new Logger('usuario');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info('Se ha editado el usuario' . $usuarios->getNombre() . 'correctamente');
+            $logger->info('Se ha editado el usuario' . $usuarios->getUsername() . 'correctamente');
 
             return $this->redirectToRoute('admin');
         }
@@ -324,13 +324,13 @@ class UsuarioController extends AbstractController
         if ($usuario) {
             $entityManager->remove($usuario);
             $entityManager->flush();
-            $this->addFlash('success', "El usuario " . $usuario->getNombre() . " ha sido eliminado correctamente!");
+            $this->addFlash('success', "El usuario " . $usuario->getUsername() . " ha sido eliminado correctamente!");
 
             //LOGGER
 
             $logger = new Logger('usuario');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info("El usuario " . $usuario->getNombre() . " ha sido eliminado");
+            $logger->info("El usuario " . $usuario->getUsername() . " ha sido eliminado");
 
             return $this->redirectToRoute('admin');
         }
@@ -435,7 +435,7 @@ class UsuarioController extends AbstractController
 
             $logger = new Logger('usuario');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info('Se ha editado el usuario' . $usuarios->getNombre() . 'correctamente');
+            $logger->info('El usuario ' . $usuarios->getNombre() . 'ha editado la contraseña correctamente');
 
             return $this->redirectToRoute('admin');
         }
@@ -460,6 +460,13 @@ class UsuarioController extends AbstractController
             $entityManager->persist($reservas);
             $entityManager->flush();
             $this->addFlash('success', "La reserva ha sido editado correctamente");
+
+            //Logger
+
+            $logger = new Logger('reserva');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info('Se ha editado la reserva numero ' . $reservas->getId());
+
             return $this->redirectToRoute('perfil', array("id" => $id));
         }
 
@@ -517,7 +524,7 @@ class UsuarioController extends AbstractController
 
             $logger = new Logger('reserva');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info("La reserva ha sido eliminada");
+            $logger->info("La reserva ha". $reserva->getId() . "sido eliminada");
 
             return $this->redirectToRoute('perfil', array("id" => $id));
         }
