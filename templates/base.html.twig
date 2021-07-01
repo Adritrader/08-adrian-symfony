@@ -83,7 +83,7 @@
                                 Log out
                             </a>
 
-                            <a style="color: #00e069" href="/perfil"><img class="mx-2" src="{{ asset(avatar_public_directory ~  app.user.avatar)}}" height="30" width="30">{{ app.user.username }}</a>
+                            <a style="color: #00e069" href="{{ path('perfil') }}"><img class="mx-2" src="{{ asset(avatar_public_directory ~  app.user.avatar)}}" height="30" width="30">{{ app.user.username }}</a>
 
                     {% else %}
 
@@ -92,7 +92,7 @@
                                 Log in
                             </a>
 
-                            <a href="/register" class="button-two">Sign Up</a>
+                            <a href="{{ path('register') }}" class="button-two">Sign Up</a>
 
                     {% endif %}
 
